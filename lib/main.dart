@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notice_board/screens/navigation_screen.dart';
+import 'package:notice_board/theme.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Notice Board',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider(create: (context)=>ThemeNotifier(),
+      child: Consumer<ThemeNotifier>(
+        builder: (context, notifier,_) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Notice Board',
+            theme: AppTheme.appTheme(notifier.isDark, context),
+            home: const NavigationScreen(),
+          );
+        }
       ),
-      home: const NavigationScreen(),
     );
   }
 }

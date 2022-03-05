@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:notice_board/theme.dart';
+import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -73,12 +75,16 @@ class _AccountScreenState extends State<AccountScreen> {
                   height: 10,
                 ),
                 Card(
-                  child: SwitchListTile.adaptive(
-                    secondary:  Icon(Icons.light_mode,color: Colors.amber.shade700,),
-                      title: const Text('Light Mode'),
-                      value: false, onChanged: (value){
-
-                  }),
+                  child: Consumer<ThemeNotifier>(
+                    builder: (context, notifier,_) {
+                      return SwitchListTile.adaptive(
+                        secondary: notifier.isDark? Icon(Icons.dark_mode,color: Colors.amber.shade700,): Icon(Icons.light_mode,color: Colors.amber.shade700,),
+                          title: notifier.isDark ? const Text('Dark Mode'):const Text('Light Mode'),
+                          value: notifier.isDark, onChanged: (value){
+                          notifier.toggleTheme(value);
+                      });
+                    }
+                  ),
                 ),
                 const SizedBox(
                   height: 15,
