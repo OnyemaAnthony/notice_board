@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:notice_board/utilities.dart';
 import '../models/user_model.dart';
+
 
 class UserRepository {
   FirebaseAuth? firebaseAuth;
@@ -79,5 +82,11 @@ class UserRepository {
     } catch (e) {
      Utilities.showToast(e.toString());
     }
+  }
+  Future<String> uploadProfilePicture(File file, String userId, String folderName) async {
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    UploadTask  uploadTask = FirebaseStorage.instance.ref().child(folderName).child(userId).child(fileName).putFile(file);
+    TaskSnapshot snapshot = uploadTask.snapshot;
+    return await snapshot.ref.getDownloadURL();
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:notice_board/models/user_model.dart';
@@ -46,7 +47,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     emit(AuthenticationLoadingState());
     try {
       var userInfo = await repository!.signUpUserWithEmailAndPassword(event.user.email!, event.user.password!);
-       await repository!.saveUser(event.user, userInfo!.uid);
+      String imageURL = await repository!.uploadProfilePicture(event.profilePicture, userInfo!.uid, 'Pictures');
+      event.user.imageURL = imageURL;
+       await repository!.saveUser(event.user, userInfo.uid);
       emit(Authenticated(await repository!.getUser()));
     } catch (e) {
      emit(AuthenticationErrorState(e.toString()));

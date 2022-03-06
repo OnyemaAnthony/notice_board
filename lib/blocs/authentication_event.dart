@@ -21,8 +21,9 @@ class LogInEvent extends AuthenticationEvent{
 }
 class SignUpEvent extends AuthenticationEvent{
   final UserModel user;
+  final File profilePicture;
 
-  const SignUpEvent(this.user);
+  const SignUpEvent(this.user,this.profilePicture);
 
   @override
   List<Object?> get props =>[];
