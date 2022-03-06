@@ -13,6 +13,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<AppStartedEvent>(_mapAppStartedEventToState);
     on<LogInEvent>(_mapLoginEventToState);
     on<SignUpEvent>(_mapSignUpEventToState);
+    on<LogOutEvent>(_mapLogOutEventToState);
 
   }
 
@@ -44,11 +45,23 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   FutureOr<void> _mapSignUpEventToState(SignUpEvent event, Emitter<AuthenticationState> emit)async {
     emit(AuthenticationLoadingState());
     try {
-      var user = await repository!
-          .signUpUserWithEmailAndPassword(event.user.e, event.password);
-      yield UserCreatedState(user);
+      var userInfo = await repository!.signUpUserWithEmailAndPassword(event.user.email!, event.user.password!);
+       await repository!.saveUser(event.user, userInfo!.uid);
+      emit(Authenticated(await repository!.getUser()));
     } catch (e) {
-      yield AuthenticationErrorState(e.toString());
+     emit(AuthenticationErrorState(e.toString()));
     }
+  }
+
+  FutureOr<void> _mapLogOutEventToState(LogOutEvent event, Emitter<AuthenticationState> emit)async {
+    emit(AuthenticationLoadingState());
+    try{
+      await repository!.signOut();
+      emit(UnAuthenticatedState());
+
+    }catch(e){
+      emit(UnAuthenticatedState());
+    }
+  }
   }
 }

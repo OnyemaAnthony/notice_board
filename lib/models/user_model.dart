@@ -5,6 +5,7 @@ class UserModel {
   String? firstName;
   String? lastName;
   String? email;
+  String? password;
   String? imageURL;
   String? description;
   bool? isAdmin;
@@ -18,6 +19,7 @@ class UserModel {
     this.firstName,
     this.lastName,
     this.email,
+    this.password,
     this.imageURL,
     this.description,
     this.isAdmin,
