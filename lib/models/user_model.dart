@@ -4,6 +4,7 @@ class UserModel {
   String? id;
   String? firstName;
   String? lastName;
+  String? email;
   String? imageURL;
   String? description;
   bool? isAdmin;
@@ -16,6 +17,7 @@ class UserModel {
     this.id,
     this.firstName,
     this.lastName,
+    this.email,
     this.imageURL,
     this.description,
     this.isAdmin,
@@ -29,6 +31,7 @@ class UserModel {
       'firstName': firstName,
       'lastName': lastName,
       'imageURL': imageURL,
+      'email':email,
       'description': description,
       'isAdmin': isAdmin,
       'isPublisher': isPublisher,
@@ -42,6 +45,7 @@ class UserModel {
       firstName= user.data()! ['firstName'],
       lastName =user.data()! ['lastName'],
       imageURL =user.data()! ['imageURL'],
+     email = user.data()!['email'],
       description =user.data()! ['description'],
       isAdmin =user.data()! ['isAdmin'],
       isPublisher =user.data()! ['isPublisher'],
