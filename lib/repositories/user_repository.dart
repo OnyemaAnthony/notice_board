@@ -71,5 +71,14 @@ class UserRepository {
     await FirebaseFirestore.instance.collection('Users').doc(userID).get();
     return user.exists;
   }
-
+  Future<void> saveUserToFireStore(UserModel user, String userUID) async {
+    try {
+      if(!(await userDetailExist(userUID))){
+        await FirebaseFirestore.instance.collection('Users').doc(userUID)
+            .set(user.toMap());
+      }
+    } catch (e) {
+     Utilities.showToast(e.toString());
+    }
+  }
 }
