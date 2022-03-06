@@ -28,7 +28,22 @@ class _AccountScreenState extends State<AccountScreen> {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               background:
-                  CachedNetworkImage(imageUrl: imageURL, fit: BoxFit.cover),
+                  CachedNetworkImage(
+                      placeholder: (context, url) =>
+                          Container(
+                            child:
+                            const CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                              valueColor:
+                              AlwaysStoppedAnimation<
+                                  Color>(
+                                  Colors.blueGrey),
+                            ),
+                            width: 85,
+                            height: 85,
+                            padding: const EdgeInsets.all(15),
+                          ),
+                      imageUrl: imageURL, fit: BoxFit.cover),
             ),
             title: Row(
               children: [
