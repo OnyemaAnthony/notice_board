@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:notice_board/models/user_model.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
