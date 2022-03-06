@@ -8,33 +8,33 @@ class AuthenticationInitial extends AuthenticationState {
   @override
   List<Object> get props => [];
 }
-class AppStartedEvent extends AuthenticationEvent{
-  @override
 
+class Authenticated extends AuthenticationState{
+  final UserModel user;
+
+  const Authenticated(this.user);
+
+  @override
+  List<Object?> get props => [];
+}
+
+class UnAuthenticatedState extends AuthenticationState{
+  @override
+  List<Object?> get props => [];
+
+}
+class AuthenticationErrorState extends AuthenticationState{
+  final String errorMessage;
+
+ const AuthenticationErrorState(this.errorMessage);
+  @override
   List<Object?> get props => [];
 
 }
 
-class LogInEvent extends AuthenticationEvent{
-  final String email,password;
 
- const LogInEvent(this.email, this.password);
-
+class AuthenticationLoadingState extends AuthenticationState{
   @override
-  List<Object?> get props =>[];
-
-}
-class SignUpEvent extends AuthenticationEvent{
-    final UserModel user;
-
-  const SignUpEvent(this.user);
-
-  @override
-  List<Object?> get props =>[];
-
-}
-class LogOutEvent extends AuthenticationEvent{
-  @override
-  List<Object?> get props =>[];
+  List<Object?> get props => [];
 
 }
