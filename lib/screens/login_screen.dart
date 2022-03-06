@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:notice_board/screens/sign_up_screen.dart';
 import 'package:notice_board/utilities.dart';
 
-import '../widges/curve.dart';
+import '../widgets/curve.dart';
 
 
 class LoginScreen extends StatefulWidget {

@@ -1,12 +1,12 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:notice_board/screens/login_screen.dart';
 import 'package:notice_board/utilities.dart';
 
-import '../widges/curve.dart';
+import '../widgets/curve.dart';
+
+
 
 
 class SignUpScreen extends StatefulWidget {
