@@ -5,6 +5,7 @@ class NoticeModel {
   String? title;
   String? description;
   String? createdBy;
+  bool? isVisible;
   DateTime? deadline;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -13,6 +14,7 @@ class NoticeModel {
     this.id,
     this.title,
     this.description,
+    this.isVisible,
     this.createdBy,
     this.deadline,
     this.createdAt,
@@ -24,6 +26,7 @@ class NoticeModel {
       'title': title,
       'description': description,
       'createdBy': createdBy,
+      'isVisible':isVisible,
       'deadline': FieldValue.serverTimestamp(),
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp()
@@ -35,6 +38,7 @@ class NoticeModel {
         title = notice.data()['title'],
         description = notice.data()['description'],
         createdBy = notice.data()['createdBy'],
+        isVisible = notice.data()['isVisible'],
         deadline = notice.data()['deadline'].toDate(),
         createdAt = notice.data()['createdAt'].toDate(),
         updatedAt = notice.data()['updatedAt'].toDate();
