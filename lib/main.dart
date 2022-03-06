@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/blocs/authentication_bloc.dart';
 import 'package:notice_board/repositories/user_repository.dart';
+import 'package:notice_board/screens/login_screen.dart';
 import 'package:notice_board/screens/navigation_screen.dart';
 import 'package:notice_board/screens/sign_up_screen.dart';
+import 'package:notice_board/screens/welcome_screen.dart';
 import 'package:notice_board/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
                 if(state is Authenticated){
                   return const NavigationScreen();
                 }else if(state is UnAuthenticatedState){
-                  return const SignUpScreen();
+                  return  WelcomeScreen();
                 }else if (state is AuthenticationErrorState){
                   return const Center(child: Text('Something went wrong try again latter'),);
                 }

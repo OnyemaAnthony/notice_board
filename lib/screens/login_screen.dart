@@ -1,328 +1,206 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notice_board/blocs/authentication_bloc.dart';
 import 'package:notice_board/screens/sign_up_screen.dart';
-import 'package:notice_board/theme.dart';
-import 'package:provider/provider.dart';
+import 'package:notice_board/utilities.dart';
+
+import '../widges/curve.dart';
 
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-
+const  LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  late AuthenticationBloc authenticationBloc;
-
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return Builder(
-      builder:(BuildContext context){
-        authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-        final provider = Provider.of<ThemeNotifier>(context, listen: false);
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xff58A4EB),
-            elevation: 0,
-          ),
-          body: Form(
-            key: _formKey,
-            child: ListView(
-              children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    ClipPath(
-                      clipper: WaveClipper2(),
-                      child: Container(
-                        child: Column(),
-                        width: double.infinity,
-                        height: 300,
-                        decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                                colors: [Color(0xff58A4EB), Color(0xff58A4EB)])),
-                      ),
-                    ),
-                    ClipPath(
-                      clipper: WaveClipper3(),
-                      child: SizedBox(
-                        child: Column(),
-                        width: double.infinity,
-                        height: 300,
-                        // decoration: BoxDecoration(
-                        //     gradient: LinearGradient(
-                        //         colors: [Color(0x44ff3a5a), Color(0x44fe494d)])),
-                      ),
-                    ),
-                    ClipPath(
-                      clipper: WaveClipper1(),
-                      child: SizedBox(
-                        child: Column(
-                          children: const <Widget>[
-                            SizedBox(
-                              height: 40,
-                            ),
-                            Icon(
-                              Icons.local_hospital,
-                              color: Colors.white,
-                              size: 60,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "Welcome Back",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 30),
-                            ),
-                          ],
-                        ),
-                        width: double.infinity,
-                        height: 300,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Material(
-                    color: provider.isDark? Colors.white: Colors.black,
-                    elevation: 2.0,
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    child: TextFormField(
-                      validator: (input) => input!.isEmpty ? 'Please your email' : null,
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                          hintText: "Email",
-                          prefixIcon: Material(
-                            color: provider.isDark? Colors.white: Colors.black,
-                            elevation: 0,
-                            borderRadius: const BorderRadius.all(Radius.circular(30)),
-                            child: const Icon(
-                              Icons.email,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          border: InputBorder.none,
-                          contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Material(
-                    color: provider.isDark? Colors.white: Colors.black,
-                    elevation: 2.0,
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    child: TextFormField(
-                      validator: (input) => input!.isEmpty ? 'Please your email' : null,
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: "Password",
-                          prefixIcon: Material(
-                            color: provider.isDark? Colors.white: Colors.black,
-                            elevation: 0,
-                            borderRadius: const BorderRadius.all(Radius.circular(30)),
-                            child: const Icon(
-                              Icons.lock,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          border: InputBorder.none,
-                          contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 25, vertical: 13)),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(100)),
-                        color: Theme.of(context).buttonColor),
-                    child: FlatButton(
-                      child: BlocConsumer<AuthenticationBloc,AuthenticationState>(
-                        listener: (context,state){
-
-                        },
-                        builder: (context,state){
-                          if(state is AuthenticationInitial){
-                            return buildText();
-                          }else if(state is AuthenticationLoadingState){
-                            return const CircularProgressIndicator();
-                          }
-                          return buildText();
-                        },
-                      ),
-                      onPressed: () {
-                        if(_formKey.currentState!.validate()){
-                          authenticationBloc.add(LogInEvent(emailController.text, passwordController.text));
-
-                        }
-
-                      },
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Center(
-                  child: Text(
-                    "FORGOT PASSWORD ?",
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      "Don't have an Account ? ",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal),
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => const SignUpScreen()));
-                        },
-                        child: const Text("Sign Up",
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12,
-                                decoration: TextDecoration.underline))),
-                  ],
-                )
-              ],
-            ),
-          ),
-        );
+  Widget _backButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
       },
-
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
+              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
+            ),
+            const Text('Back',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
+          ],
+        ),
+      ),
     );
   }
 
-}
-Text buildText(){
-  return const Text(
-    "Sign IN",
-    style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
-        fontSize: 18),
-  );
-}
+  Widget _entryField(String title, {bool isPassword = false}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextField(
+              obscureText: isPassword,
+              decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  fillColor: Color(0xfff3f3f4),
+                  filled: true))
+        ],
+      ),
+    );
+  }
+
+  Widget _submitButton() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.grey.shade200,
+                offset: const Offset(2, 4),
+                blurRadius: 5,
+                spreadRadius: 2)
+          ],
+          gradient: const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [Colors.purple, Colors.purpleAccent])),
+      child: const Text(
+        'Login',
+        style: TextStyle(fontSize: 20, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _divider() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        children: const <Widget>[
+          SizedBox(
+            width: 20,
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Divider(
+                thickness: 1,
+              ),
+            ),
+          ),
+          Text('or'),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Divider(
+                thickness: 1,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
+      ),
+    );
+  }
 
 
-class WaveClipper1 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
+  Widget _createAccountLabel() {
+    return InkWell(
+      onTap: () {
+        Utilities.push(const SignUpScreen(), context);
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.all(15),
+        alignment: Alignment.bottomCenter,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            Text(
+              'Don\'t have an account ?',
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Register',
+              style: TextStyle(
+                  color: Color(0xfff79c4f),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
-    var firstEndPoint = Offset(size.width * 0.6, size.height - 29 - 50);
-    var firstControlPoint = Offset(size.width * .25, size.height - 60 - 50);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
 
-    var secondEndPoint = Offset(size.width, size.height - 60);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 50);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
+  Widget _emailPasswordWidget() {
+    return Column(
+      children: <Widget>[
+        _entryField("Email id"),
+        _entryField("Password", isPassword: true),
+      ],
+    );
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-class WaveClipper3 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
-
-    var firstEndPoint = Offset(size.width * 0.6, size.height - 15 - 50);
-    var firstControlPoint = Offset(size.width * .25, size.height - 60 - 50);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    var secondEndPoint = Offset(size.width, size.height - 40);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 30);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-class WaveClipper2 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
-
-    var firstEndPoint = Offset(size.width * .7, size.height - 40);
-    var firstControlPoint = Offset(size.width * .25, size.height);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    var secondEndPoint = Offset(size.width, size.height - 45);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 50);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    return Scaffold(
+        body: SizedBox(
+          height: height,
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                  top: -height * .15,
+                  right: -MediaQuery.of(context).size.width * .4,
+                  child: const BezierContainer()),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: height * .2),
+                      const SizedBox(height: 50),
+                      _emailPasswordWidget(),
+                      const SizedBox(height: 20),
+                      _submitButton(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        alignment: Alignment.centerRight,
+                        child: const Text('Forgot Password ?',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w500)),
+                      ),
+                      _divider(),
+                      SizedBox(height: height * .055),
+                      _createAccountLabel(),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(top: 40, left: 0, child: _backButton()),
+            ],
+          ),
+        ));
   }
 }

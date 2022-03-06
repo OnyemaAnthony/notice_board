@@ -1,13 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notice_board/theme.dart';
-import 'package:provider/provider.dart';
+import 'dart:io';
 
-import '../blocs/authentication_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:notice_board/screens/login_screen.dart';
+import 'package:notice_board/utilities.dart';
+
+import '../widges/curve.dart';
+
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+ const  SignUpScreen({Key ?key}) : super(key: key);
 
 
 
@@ -16,269 +18,195 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  late AuthenticationBloc authenticationBloc;
+  File? profilePicture;
+  Widget _backButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
+              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
+            ),
+            const Text('Back',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _entryField(String title, {bool isPassword = false}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextField(
+              obscureText: isPassword,
+              decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  fillColor: Color(0xfff3f3f4),
+                  filled: true))
+        ],
+      ),
+    );
+  }
+
+  Widget _submitButton() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.grey.shade200,
+                offset: const Offset(2, 4),
+                blurRadius: 5,
+                spreadRadius: 2)
+          ],
+          gradient: const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [Colors.purple,Colors.purpleAccent])),
+      child: const Text(
+        'Register Now',
+        style: TextStyle(fontSize: 20, color: Colors.white),
+      ),
+    );
+  }
+
+  Widget _loginAccountLabel() {
+    return InkWell(
+      onTap: () {
+      Utilities.push(const LoginScreen(), context);
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.all(15),
+        alignment: Alignment.bottomCenter,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            Text(
+              'Already have an account ?',
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Login',
+              style: TextStyle(
+                  color: Color(0xfff79c4f),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _emailPasswordWidget() {
+    return Column(
+      children: <Widget>[
+        _entryField("Username"),
+        _entryField("Email id"),
+        _entryField("Password", isPassword: true),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return Builder(
-      builder: (BuildContext context) {
-        authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-        final provider = Provider.of<ThemeNotifier>(context, listen: false);
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xff58A4EB),
-            elevation: 0,
-          ),
-          body: Form(
-            key: _formKey,
-            child: ListView(
-              children: <Widget>[
-                Stack(
+    final height = MediaQuery.of(context).size.height;
+    return Scaffold(
+      body: SizedBox(
+        height: height,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: -MediaQuery.of(context).size.height * .15,
+              right: -MediaQuery.of(context).size.width * .4,
+              child: const BezierContainer(),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    ClipPath(
-                      clipper: WaveClipper2(),
-                      child: Container(
-                        child: Column(),
-                        width: double.infinity,
-                        height: 300,
-                        decoration: const BoxDecoration(
-                            gradient: LinearGradient(colors: [
-                              Color(0xff58A4EB),
-                              Color(0xff58A4EB)
-                            ])),
+                    SizedBox(height: height * .2),
+                   profilePicture != null? Material(
+                      child: Image.file(
+                        profilePicture!,
+                        width: 90.0,
+                        height: 90.0,
+                        fit: BoxFit.cover,
                       ),
-                    ),
-                    ClipPath(
-                      clipper: WaveClipper3(),
-                      child: SizedBox(
-                        child: Column(),
-                        width: double.infinity,
-                        height: 300,
-                        // decoration: BoxDecoration(
-                        //     gradient: LinearGradient(
-                        //         colors: [Color(0x44ff3a5a), Color(0x44fe494d)])),
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(45.0)),
+                      clipBehavior: Clip.hardEdge,
+                    ):
+                    IconButton(
+                      icon: Icon(
+                        Icons.camera_alt,
+                        color: Colors.teal.withOpacity(0.5),
                       ),
+                      onPressed: pickImage,
+                      padding: const EdgeInsets.all(30.0),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.grey,
+                      iconSize: 30.0,
                     ),
-                    ClipPath(
-                      clipper: WaveClipper1(),
-                      child: SizedBox(
-                        child: Column(
-                          children: const <Widget>[
-                            SizedBox(
-                              height: 40,
-                            ),
-                            Icon(
-                              Icons.local_hospital,
-                              color: Colors.white,
-                              size: 60,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              "Stay Healthy",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 30),
-                            ),
-                          ],
-                        ),
-                        width: double.infinity,
-                        height: 300,
-                      ),
+
+                    const SizedBox(
+                      height: 50,
                     ),
+                    _emailPasswordWidget(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _submitButton(),
+                    SizedBox(height: height * .14),
+                    _loginAccountLabel(),
                   ],
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Material(
-                    color: provider.isDark? Colors.white : Colors.black,
-                    elevation: 2.0,
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    child: TextFormField(
-                      validator: (input) =>
-                      input!.isEmpty ? 'Please your email' : null,
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                          hintText: "Email",
-                          prefixIcon: Material(
-                            color: provider.isDark
-                                ? Colors.white
-                                : Colors.black,
-                            elevation: 0,
-                            borderRadius: const BorderRadius.all(Radius.circular(30)),
-                            child: const Icon(
-                              Icons.email,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 13)),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Material(
-                    color: provider.isDark ? Colors.white : Colors.black,
-                    elevation: 2.0,
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    child: TextFormField(
-                      validator: (input) =>
-                      input!.isEmpty ? 'Please enter your password' : null,
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: "Password",
-                          prefixIcon: Material(
-                            color: provider.isDark
-                                ? Colors.white
-                                : Colors.black,
-                            elevation: 0,
-                            borderRadius: const BorderRadius.all(Radius.circular(30)),
-                            child: const Icon(
-                              Icons.lock,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          border: InputBorder.none,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 13)),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(Radius.circular(100)),
-                          color: Theme.of(context).buttonColor),
-                      child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
-                        listener: (context, state) {
-                        },
-                        builder: (context, state) {
-                          if (state is AuthenticationLoadingState) {
-                            return Center(child: CircularProgressIndicator());
-                          }
-                          return FlatButton(
-                            child: buildText(),
-                            onPressed: () {
-
-                            },
-                          );
-                        },
-                      ),
-                    )),
-              ],
+              ),
             ),
-          ),
-        );
-      },
+            Positioned(top: 40, left: 0, child: _backButton()),
+          ],
+        ),
+      ),
     );
   }
+  Future pickImage() async {
 
-  Text buildText() {
-    return Text(
-      "Sign up",
-      style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
-    );
-  }
-}
+    final ImagePicker _picker = ImagePicker();
 
-class WaveClipper1 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
-    var firstEndPoint = Offset(size.width * 0.6, size.height - 29 - 50);
-    var firstControlPoint = Offset(size.width * .25, size.height - 60 - 50);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
+    if (image != null) {
+      setState(() {
+        profilePicture = File(image.path);
 
-    var secondEndPoint = Offset(size.width, size.height - 60);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 50);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
+      });
+    }
   }
 
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-class WaveClipper3 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
-
-    var firstEndPoint = Offset(size.width * 0.6, size.height - 15 - 50);
-    var firstControlPoint = Offset(size.width * .25, size.height - 60 - 50);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    var secondEndPoint = Offset(size.width, size.height - 40);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 30);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-class WaveClipper2 extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0.0, size.height - 50);
-
-    var firstEndPoint = Offset(size.width * .7, size.height - 40);
-    var firstControlPoint = Offset(size.width * .25, size.height);
-    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
-        firstEndPoint.dx, firstEndPoint.dy);
-
-    var secondEndPoint = Offset(size.width, size.height - 45);
-    var secondControlPoint = Offset(size.width * 0.84, size.height - 50);
-    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
-        secondEndPoint.dx, secondEndPoint.dy);
-    path.lineTo(size.width, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
 }
