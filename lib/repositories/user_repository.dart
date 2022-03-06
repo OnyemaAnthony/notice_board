@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notice_board/utilities.dart';
+
+import '../models/user_model.dart';
 
 class UserRepository {
   FirebaseAuth? firebaseAuth;
@@ -7,7 +10,10 @@ class UserRepository {
   UserRepository() {
     firebaseAuth = FirebaseAuth.instance;
   }
-
+  Future<UserModel> getUser() async {
+    String userID = ( firebaseAuth!.currentUser)!.uid;
+    return (await getUserInfo(userID));
+  }
   Future<User?> signUpUserWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -45,17 +51,25 @@ class UserRepository {
     return firebaseAuth!.currentUser;
   }
 
-  Future<void> saveDoctor(doctor, String userUID) async {
+  Future<void> saveUser(UserModel user, String userUID) async {
     try {
       if (!await userDetailExist(userUID)) {
-        await DatabaseReference.doctorsRef.doc(userUID).set(doctor.toMap());
+        await FirebaseFirestore.instance.collection('Users').doc(userUID).set(user.toMap());
       }
     } catch (e) {
-      print(e.toString());
       Utilities.showToast(e.toString());
       throw Exception(e);
     }
   }
-
+  Future<UserModel> getUserInfo(String userID) async {
+    DocumentSnapshot userDoc =
+    await FirebaseFirestore.instance.collection('Users').doc(userID).get();
+    return UserModel.fromFireStore(userDoc);
+  }
+  Future<bool> userDetailExist(String userID)async {
+    DocumentSnapshot user =
+    await FirebaseFirestore.instance.collection('Users').doc(userID).get();
+    return user.exists;
+  }
 
 }
