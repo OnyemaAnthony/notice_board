@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:notice_board/screens/login_screen.dart';
@@ -163,16 +164,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Radius.circular(45.0)),
                       clipBehavior: Clip.hardEdge,
                     ):
-                    IconButton(
-                      icon: Icon(
-                        Icons.camera_alt,
-                        color: Colors.teal.withOpacity(0.5),
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.grey,width: 1.5)
                       ),
-                      onPressed: pickImage,
-                      padding: const EdgeInsets.all(30.0),
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.grey,
-                      iconSize: 30.0,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: Colors.teal.withOpacity(0.5),
+                        ),
+                        onPressed: pickImage,
+                        padding: const EdgeInsets.all(30.0),
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.grey,
+                        iconSize: 30.0,
+                      ),
                     ),
 
                     const SizedBox(
