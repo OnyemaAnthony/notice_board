@@ -37,15 +37,15 @@ class UserModel {
     };
   }
 
-  UserModel.fromFirestore(QueryDocumentSnapshot<Map<String, dynamic>> notice):
-       id = notice.id,
-      firstName= notice.data() ['firstName'],
-      lastName =notice.data() ['lastName'],
-      imageURL =notice.data() ['imageURL'],
-      description =notice.data() ['description'],
-      isAdmin =notice.data() ['isAdmin'],
-      isPublisher =notice.data() ['isPublisher'],
-      createdAt =notice.data() ['createdAt'].toDate(),
-      updatedAt =notice.data() ['updatedAt'].toDate();
+  UserModel.fromFireStore(QueryDocumentSnapshot<Map<String, dynamic>> user):
+       id = user.id,
+      firstName= user.data() ['firstName'],
+      lastName =user.data() ['lastName'],
+      imageURL =user.data() ['imageURL'],
+      description =user.data() ['description'],
+      isAdmin =user.data() ['isAdmin'],
+      isPublisher =user.data() ['isPublisher'],
+      createdAt =user.data() ['createdAt'].toDate(),
+      updatedAt =user.data() ['updatedAt'].toDate();
 
   }
