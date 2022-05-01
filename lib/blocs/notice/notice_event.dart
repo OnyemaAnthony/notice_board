@@ -36,10 +36,3 @@ class DeleteNoticeEvent extends NoticeEvent{
 
 }
 
-class DeleteNoticeEvent extends NoticeEvent{
-  final String noticeI;
-
-const DeleteNoticeEvent(this.noticeI);
-  @override
-  List<Object?> get props =>[];
-}

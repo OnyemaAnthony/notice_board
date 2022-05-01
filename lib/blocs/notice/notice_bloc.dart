@@ -17,6 +17,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     on<GetAllNoticeEvent>(_mapGetAllNoticeEventToState);
     on<NoticeUpdated>(_mapNoticeUpdatedToState);
     on<CreateNoticeEvent>(_mapCreateNoticeEventToState);
+    on<DeleteNoticeEvent>(_mapDeleteNoticeEventToState);
   }
 
   FutureOr<void> _mapGetAllNoticeEventToState(GetAllNoticeEvent event, Emitter<NoticeState> emit)async {
@@ -45,6 +46,15 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     emit(NoticeLoadingState());
     try {
       await repository!.saveNotice(event.notice);
+    } catch (e) {
+      emit(NoticeErrorSate(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapDeleteNoticeEventToState(DeleteNoticeEvent event, Emitter<NoticeState> emit)async {
+    emit(NoticeLoadingState());
+    try {
+      await repository!.deleteNotice(event.noticeId);
     } catch (e) {
       emit(NoticeErrorSate(e.toString()));
     }
