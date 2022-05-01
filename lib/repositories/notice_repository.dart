@@ -5,7 +5,7 @@ import 'package:notice_board/utilities.dart';
 class NoticeRepository{
   Stream<QuerySnapshot> getAllNotice() {
     try {
-      return FirebaseFirestore.instance.collection('notices').where('isVisible',isEqualTo: true)
+      return FirebaseFirestore.instance.collection('notices').where('isVisible',isEqualTo: false)
           .snapshots();
     } catch (e) {
      return throw Exception(e.toString());

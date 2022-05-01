@@ -106,7 +106,7 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
-        initialDate: DateTime(1990, 1, 1),
+        initialDate: DateTime(2022, 1, 1),
         firstDate: DateTime(1900, 1),
         lastDate: DateTime(2100));
 

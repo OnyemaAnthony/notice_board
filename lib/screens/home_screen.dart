@@ -47,8 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
           return BlocBuilder<NoticeBloc, NoticeState>(
             builder: (context, state) {
               if(state is NoticeLoadingState){
-                return const Center(child: CircularProgressIndicator());
+                return Utilities.showCircularLoader('Fetching notices...');
               }else if(state is NoticeLoadedState){
+                print('the notice is ${state.noticeDocs.length}');
                 return buildNoticeList(state.noticeDocs);
               }
               return Container();
