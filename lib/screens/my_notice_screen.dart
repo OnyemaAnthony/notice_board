@@ -8,7 +8,9 @@ class MyNoticeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('My Notices'),
       ),
-      body: ,
+      body: Container(
+
+      ),
     );
   }
 }
