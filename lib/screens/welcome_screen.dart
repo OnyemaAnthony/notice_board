@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:notice_board/screens/login_screen.dart';
+import 'package:notice_board/screens/sign_up_screen.dart';
 import 'package:notice_board/utilities.dart';
 
 
@@ -47,42 +48,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           border: Border.all(color: Colors.white, width: 2),
         ),
-        child: const Text(
-          'Register now',
-          style: TextStyle(fontSize: 20, color: Colors.white),
+        child: GestureDetector(
+          onTap: (){
+            Utilities.push(const SignUpScreen(), context);
+          },
+          child: const Text(
+            'Register now',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
         ),
       ),
     );
   }
-
-  Widget _label() {
-    return Container(
-        margin: const EdgeInsets.only(top: 40, bottom: 20),
-        child: Column(
-          children: const <Widget>[
-            Text(
-              'Quick login with Touch ID',
-              style: TextStyle(color: Colors.white, fontSize: 17),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Icon(Icons.fingerprint, size: 90, color: Colors.white),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Touch ID',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ],
-        ));
-  }
-
 
   @override
   Widget build(BuildContext context) {

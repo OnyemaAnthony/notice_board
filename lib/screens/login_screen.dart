@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/blocs/authentication/authentication_bloc.dart';
 import 'package:notice_board/repositories/user_repository.dart';
+import 'package:notice_board/screens/navigation_screen.dart';
 import 'package:notice_board/screens/sign_up_screen.dart';
 import 'package:notice_board/utilities.dart';
 
@@ -80,14 +81,19 @@ class _LoginScreenState extends State<LoginScreen> {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [Colors.purple, Colors.purpleAccent])),
-      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      child: BlocConsumer<AuthenticationBloc, AuthenticationState>(
+        listener: (context, state) {
+         if(state is Authenticated){
+           Utilities.pushReplace(const NavigationScreen(), context);
+         }
+        },
   builder: (context, state) {
     if(state is AuthenticationLoadingState){
       return const CircularProgressIndicator();
     }
     return TextButton(
         onPressed: (){
-          authenticationBloc.add(LogInEvent('anthon@gmail.com','this.tony'));
+          authenticationBloc.add(const LogInEvent('anthon@gmail.com','this.tony'));
         },
         child:  const Text(
           'Login',

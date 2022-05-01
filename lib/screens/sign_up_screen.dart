@@ -6,6 +6,7 @@ import 'package:notice_board/blocs/authentication/authentication_bloc.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/repositories/user_repository.dart';
 import 'package:notice_board/screens/login_screen.dart';
+import 'package:notice_board/screens/navigation_screen.dart';
 import 'package:notice_board/utilities.dart';
 
 import '../widgets/curve.dart';
@@ -89,7 +90,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [Colors.purple,Colors.purpleAccent])),
-      child:  BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      child:  BlocConsumer<AuthenticationBloc, AuthenticationState>(
+        listener: (context, state) {
+          if(state is Authenticated){
+            Utilities.pushReplace(const NavigationScreen(), context);
+          }
+        },
   builder: (context, state) {
     if(state is AuthenticationLoadingState){
       return const CircularProgressIndicator();
