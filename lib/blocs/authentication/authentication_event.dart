@@ -2,11 +2,10 @@ part of 'authentication_bloc.dart';
 
 abstract class AuthenticationEvent extends Equatable {
   const AuthenticationEvent();
+  @override
+  List<Object?> get props =>[];
 }
 class AppStartedEvent extends AuthenticationEvent{
-  @override
-
-  List<Object?> get props => [];
 
 }
 
@@ -15,8 +14,7 @@ class LogInEvent extends AuthenticationEvent{
 
   const LogInEvent(this.email, this.password);
 
-  @override
-  List<Object?> get props =>[];
+
 
 }
 class SignUpEvent extends AuthenticationEvent{
@@ -25,12 +23,7 @@ class SignUpEvent extends AuthenticationEvent{
 
   const SignUpEvent(this.user,this.profilePicture);
 
-  @override
-  List<Object?> get props =>[];
-
 }
 class LogOutEvent extends AuthenticationEvent{
-  @override
-  List<Object?> get props =>[];
 
 }

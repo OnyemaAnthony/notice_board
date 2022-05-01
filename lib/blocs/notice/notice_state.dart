@@ -2,15 +2,15 @@ part of 'notice_bloc.dart';
 
 abstract class NoticeState extends Equatable {
   const NoticeState();
+  @override
+  List<Object?> get props =>[];
 }
 
 class NoticeInitial extends NoticeState {
-  @override
-  List<Object> get props => [];
+
 }
 class NoticeLoadingState extends NoticeState{
-  @override
-  List<Object?> get props => [];
+
 
 }
 class NoticeLoadedState extends NoticeState{
@@ -18,8 +18,7 @@ class NoticeLoadedState extends NoticeState{
 
   const NoticeLoadedState(this.noticeDocs);
 
-  @override
-  List<Object?> get props =>[];
+
 
 }
 class NoticeErrorSate extends NoticeState{
