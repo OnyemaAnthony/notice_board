@@ -20,8 +20,8 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
   FutureOr<void> _mapGetAllNoticeEventToState(GetAllNoticeEvent event, Emitter<NoticeState> emit)async {
     emit(NoticeLoadingState());
     noticeSubscription?.cancel();
-    noticeSubscription = repository.getAttendances(event.parishID).listen((attendanceDoc) {
-      add(NoticeUpdated(attendanceDoc.docs));
+    noticeSubscription = repository!.getAllNotice().listen((noticeDoc) {
+      add(NoticeUpdated(noticeDoc.docs));
     });
   }
 }

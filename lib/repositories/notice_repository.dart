@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class NoticeRepository{
 
 
-  Stream<QuerySnapshot> getAllNotice(String parishID) {
+  Stream<QuerySnapshot> getAllNotice() {
     try {
       return FirebaseFirestore.instance.collection('Users').where('isVisible',isEqualTo: true)
           .snapshots();
