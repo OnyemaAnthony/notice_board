@@ -57,6 +57,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     emit(NoticeLoadingState());
     try {
       await repository!.deleteNotice(event.noticeId);
+      emit(NoticeAddedState());
     } catch (e) {
       emit(NoticeErrorSate(e.toString()));
     }

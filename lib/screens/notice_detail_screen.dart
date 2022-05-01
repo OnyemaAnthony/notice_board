@@ -5,6 +5,9 @@ import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
 import 'package:notice_board/utilities.dart';
 
+import '../blocs/authentication/authentication_bloc.dart';
+import '../models/user_model.dart';
+
 class NoticeDetailScreen extends StatefulWidget {
   final NoticeModel? notice;
 
@@ -19,13 +22,17 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserModel user = (BlocProvider
+        .of<AuthenticationBloc>(context)
+        .state
+        .props[0] as UserModel);
     return BlocProvider(
       create: (BuildContext context) => NoticeBloc(repository: NoticeRepository()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.notice!.title!),
           actions: [
-            Padding(
+            user.isPublisher! ||user.id ==widget.notice!.createdBy!? Padding(
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
@@ -33,11 +40,12 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                 },
                 child: const Icon(Icons.delete),
               ),
-            ),
+            ):Container(),
           ],
         ),
         body: Builder(
             builder: (BuildContext context) {
+              noticeBloc = BlocProvider.of<NoticeBloc>(context);
               return BlocBuilder<NoticeBloc, NoticeState>(
                 builder: (context, state) {
                   if(state is NoticeLoadingState){
@@ -60,13 +68,14 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
     Widget cancelButton = FlatButton(
       child: const Text('Cancel'),
       onPressed: () {
-        noticeBloc.add(DeleteNoticeEvent(widget.notice!.id!));
         Navigator.pop(context);
       },
     );
     Widget continueButton = FlatButton(
       child: const Text('Ok'),
       onPressed: () {
+        noticeBloc.add(DeleteNoticeEvent(widget.notice!.id!));
+        Navigator.pop(context);
         Navigator.pop(context);
       },
     );
