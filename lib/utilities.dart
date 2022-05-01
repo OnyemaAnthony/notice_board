@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class Utilities {
 
-  static showToast(String message){
+  static  showToast(String message){
 
     Fluttertoast.showToast(
         msg: message,

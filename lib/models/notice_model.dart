@@ -33,7 +33,7 @@ class NoticeModel {
     };
   }
 
-  NoticeModel.fromFireStore(QueryDocumentSnapshot<Map<String, dynamic>> notice)
+  NoticeModel.fromFireStore(dynamic notice)
       : id = notice.id,
         title = notice.data()['title'],
         description = notice.data()['description'],
