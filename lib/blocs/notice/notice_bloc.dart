@@ -18,6 +18,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     on<NoticeUpdated>(_mapNoticeUpdatedToState);
     on<CreateNoticeEvent>(_mapCreateNoticeEventToState);
     on<DeleteNoticeEvent>(_mapDeleteNoticeEventToState);
+    on<FetchPublishersNoticeEvent>(_mapFetchPublishersNoticeEventToState);
   }
 
   FutureOr<void> _mapGetAllNoticeEventToState(GetAllNoticeEvent event, Emitter<NoticeState> emit)async {
@@ -58,5 +59,19 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     } catch (e) {
       emit(NoticeErrorSate(e.toString()));
     }
+  }
+
+  FutureOr<void> _mapFetchPublishersNoticeEventToState(FetchPublishersNoticeEvent event, Emitter<NoticeState> emit) async{
+    emit(NoticeLoadingState());
+
+    try {
+      noticeSubscription?.cancel();
+      noticeSubscription = repository!.fetchPublishersNotice(event.publishersId).listen((noticeDoc) {
+        add(NoticeUpdated(noticeDoc.docs));
+      });
+    } catch (e) {
+      emit(NoticeErrorSate(e.toString()));
+    }
+    
   }
 }

@@ -13,6 +13,15 @@ class NoticeRepository{
     }
   }
 
+  Stream<QuerySnapshot> fetchPublishersNotice(String publishersId) {
+    try {
+      return FirebaseFirestore.instance.collection('notices').where('createdBy',isEqualTo: publishersId)
+          .snapshots();
+    } catch (e) {
+      return throw Exception(e.toString());
+    }
+  }
+
   Future<void> saveNotice(NoticeModel notice)async{
     try {
       await FirebaseFirestore.instance.collection('notices').add(notice.toMap());
@@ -27,4 +36,5 @@ class NoticeRepository{
       print(e.toString());
     }
  }
+
 }
