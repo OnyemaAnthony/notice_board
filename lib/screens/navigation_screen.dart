@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/screens/account_screen.dart';
 import 'package:notice_board/screens/home_screen.dart';
 import 'package:notice_board/screens/my_notice_screen.dart';
 class NavigationScreen extends StatefulWidget {
-  const NavigationScreen({Key? key}) : super(key: key);
+  final UserModel? user;
+  const NavigationScreen({Key? key,this.user}) : super(key: key);
 
   @override
   _NavigationScreenState createState() => _NavigationScreenState();

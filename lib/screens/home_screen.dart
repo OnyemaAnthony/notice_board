@@ -10,8 +10,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserModel user = (BlocProvider.of<AuthenticationBloc>(context).state.props[0] as UserModel);
-    print('the username is ${user.email}');
     return Scaffold(
+      floatingActionButton:user.isPublisher != null && user.isPublisher!?  FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: (){
+
+        },
+      ): Container(),
       appBar: AppBar(
         title:const Text('Notice Board'),
         centerTitle: true,
