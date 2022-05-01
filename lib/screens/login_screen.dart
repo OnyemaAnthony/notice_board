@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notice_board/blocs/authentication/authentication_bloc.dart';
+import 'package:notice_board/repositories/user_repository.dart';
 import 'package:notice_board/screens/sign_up_screen.dart';
 import 'package:notice_board/utilities.dart';
 
@@ -13,6 +16,7 @@ const  LoginScreen({Key? key}) : super(key: key);
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late AuthenticationBloc authenticationBloc;
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -76,10 +80,22 @@ class _LoginScreenState extends State<LoginScreen> {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [Colors.purple, Colors.purpleAccent])),
-      child: const Text(
-        'Login',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
+      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+  builder: (context, state) {
+    if(state is AuthenticationLoadingState){
+      return const CircularProgressIndicator();
+    }
+    return TextButton(
+        onPressed: (){
+          authenticationBloc.add(LogInEvent('anthon@gmail.com','this.tony'));
+        },
+        child:  const Text(
+          'Login',
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
+      );
+  },
+),
     );
   }
 
@@ -162,44 +178,52 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    return Scaffold(
-        body: SizedBox(
-          height: height,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                  top: -height * .15,
-                  right: -MediaQuery.of(context).size.width * .4,
-                  child: const BezierContainer()),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: height * .2),
-                      const SizedBox(height: 50),
-                      _emailPasswordWidget(),
-                      const SizedBox(height: 20),
-                      _submitButton(),
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        alignment: Alignment.centerRight,
-                        child: const Text('Forgot Password ?',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w500)),
+    return BlocProvider(
+  create: (BuildContext context) => AuthenticationBloc(repository: UserRepository()),
+  child: Builder(
+    builder: (BuildContext context) {
+      authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+      return Scaffold(
+            body: SizedBox(
+              height: height,
+              child: Stack(
+                children: <Widget>[
+                  Positioned(
+                      top: -height * .15,
+                      right: -MediaQuery.of(context).size.width * .4,
+                      child: const BezierContainer()),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(height: height * .2),
+                          const SizedBox(height: 50),
+                          _emailPasswordWidget(),
+                          const SizedBox(height: 20),
+                          _submitButton(),
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            alignment: Alignment.centerRight,
+                            child: const Text('Forgot Password ?',
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500)),
+                          ),
+                          _divider(),
+                          SizedBox(height: height * .055),
+                          _createAccountLabel(),
+                        ],
                       ),
-                      _divider(),
-                      SizedBox(height: height * .055),
-                      _createAccountLabel(),
-                    ],
+                    ),
                   ),
-                ),
+                  Positioned(top: 40, left: 0, child: _backButton()),
+                ],
               ),
-              Positioned(top: 40, left: 0, child: _backButton()),
-            ],
-          ),
-        ));
+            ));
+    }
+  ),
+);
   }
 }
