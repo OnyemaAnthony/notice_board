@@ -15,13 +15,38 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
   StreamSubscription? noticeSubscription;
   NoticeBloc({this.repository}) : super(NoticeInitial()) {
     on<GetAllNoticeEvent>(_mapGetAllNoticeEventToState);
+    on<NoticeUpdated>(_mapNoticeUpdatedToState);
+    on<CreateNoticeEvent>(_mapCreateNoticeEventToState);
   }
 
   FutureOr<void> _mapGetAllNoticeEventToState(GetAllNoticeEvent event, Emitter<NoticeState> emit)async {
     emit(NoticeLoadingState());
-    noticeSubscription?.cancel();
-    noticeSubscription = repository!.getAllNotice().listen((noticeDoc) {
-      add(NoticeUpdated(noticeDoc.docs));
-    });
+
+    try {
+      noticeSubscription?.cancel();
+      noticeSubscription = repository!.getAllNotice().listen((noticeDoc) {
+        add(NoticeUpdated(noticeDoc.docs));
+      });
+    } catch (e) {
+      emit(NoticeErrorSate(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapNoticeUpdatedToState(NoticeUpdated event, Emitter<NoticeState> emit) async{
+    emit(NoticeLoadingState());
+    try {
+      emit(NoticeLoadedState(event.noticeDocs));
+    } catch (e) {
+      emit(NoticeErrorSate(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapCreateNoticeEventToState(CreateNoticeEvent event, Emitter<NoticeState> emit) async{
+    emit(NoticeLoadingState());
+    try {
+      await repository!.saveNotice(event.notice);
+    } catch (e) {
+      emit(NoticeErrorSate(e.toString()));
+    }
   }
 }

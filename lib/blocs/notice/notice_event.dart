@@ -27,6 +27,14 @@ class GetAllNoticeEvent extends NoticeEvent{
   List<Object?> get props => [];
 
 }
+class DeleteNoticeEvent extends NoticeEvent{
+  final String noticeId;
+
+  const DeleteNoticeEvent(this.noticeId);
+  @override
+  List<Object?> get props => [];
+
+}
 
 class DeleteNoticeEvent extends NoticeEvent{
   final String noticeI;

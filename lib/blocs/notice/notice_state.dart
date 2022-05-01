@@ -14,6 +14,9 @@ class NoticeLoadingState extends NoticeState{
 
 }
 class NoticeLoadedState extends NoticeState{
+  final List<DocumentSnapshot> noticeDocs;
+
+  const NoticeLoadedState(this.noticeDocs);
 
   @override
   List<Object?> get props =>[];
