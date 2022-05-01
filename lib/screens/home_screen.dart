@@ -5,6 +5,7 @@ import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
 import 'package:notice_board/screens/create_notice_screen.dart';
+import 'package:notice_board/screens/notice_detail_screen.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/notice_list.dart';
 
@@ -65,7 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: notices.length,
       itemBuilder: (context,index){
         NoticeModel notice = notices[index];
-        return NoticeList(notice: notice);
+        return GestureDetector(
+          onTap: (){
+            Utilities.push(NoticeDetailScreen(notice: notice,),context);
+          },
+            child: NoticeList(notice: notice));
       },
     );
 
