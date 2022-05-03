@@ -31,7 +31,7 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
 
     return BlocProvider(
       create: (context) => NoticeBloc(repository: NoticeRepository())
-        ..add(FetchPublishersNoticeEvent(user.id!)),
+        ..add(FetchPublishersNoticeEvent(Storage.user!.id!)),
       child: Builder(builder: (BuildContext context) {
         authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
         return Scaffold(
@@ -138,7 +138,7 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
 
   void becomePublisher(BuildContext context) {
     Widget cancelButton = FlatButton(
-      child: const Text('No'),
+      child: const Text('Ok'),
       onPressed: () {
         Navigator.pop(context);
       },

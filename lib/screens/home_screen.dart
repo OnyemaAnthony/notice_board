@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("the store ${Storage.user!.id}");
+   // print("the store ${Storage.user!.id}");
     var state = BlocProvider.of<AuthenticationBloc>(context);
     return Scaffold(
       floatingActionButton:state is Authenticated && (BlocProvider.of<AuthenticationBloc>(context).state.props[0]as UserModel).isPublisher != null && (BlocProvider.of<AuthenticationBloc>(context).state.props[0]as UserModel).isPublisher!

@@ -102,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     return TextButton(
         onPressed: (){
-          authenticationBloc.add(SignUpEvent(UserModel(createdAt: DateTime.now(),description: 'hello',email: 'anthon@gmail.com',password:'this.tony',lastName: 'onyema',isPublisher: false,isAdmin: false), profilePicture!));
+          authenticationBloc.add(SignUpEvent(UserModel(createdAt: DateTime.now(),description: 'hello',isRequestedPublisher:false,email: 'anthon@gmail.com',password:'this.tony',lastName: 'onyema',isPublisher: false,isAdmin: false), profilePicture!));
         },
         child: const Text('Register now'),
        // style: TextButton.styleFrom( ),
