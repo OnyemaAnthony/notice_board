@@ -8,6 +8,7 @@ import 'package:notice_board/screens/create_notice_screen.dart';
 import 'package:notice_board/screens/notice_detail_screen.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/notice_list.dart';
+import 'package:notice_board/widgets/storage.dart';
 
 import '../blocs/authentication/authentication_bloc.dart';
 import '../models/user_model.dart';
@@ -24,12 +25,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = (BlocProvider
-        .of<AuthenticationBloc>(context)
-        .state
-        .props[0] as UserModel);
+    print("the store ${Storage.user!.id}");
+    var state = BlocProvider.of<AuthenticationBloc>(context);
     return Scaffold(
-      floatingActionButton: user.isPublisher != null && user.isPublisher!
+      floatingActionButton:state is Authenticated && (BlocProvider.of<AuthenticationBloc>(context).state.props[0]as UserModel).isPublisher != null && (BlocProvider.of<AuthenticationBloc>(context).state.props[0]as UserModel).isPublisher!
           ? FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
@@ -50,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
               if(state is NoticeLoadingState){
                 return Utilities.showCircularLoader('Fetching notices...');
               }else if(state is NoticeLoadedState){
-                print('the notice is ${state.noticeDocs.length}');
                 return buildNoticeList(state.noticeDocs);
               }
               return Container();

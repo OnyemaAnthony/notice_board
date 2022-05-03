@@ -8,6 +8,7 @@ import 'package:notice_board/screens/navigation_screen.dart';
 import 'package:notice_board/screens/sign_up_screen.dart';
 import 'package:notice_board/screens/welcome_screen.dart';
 import 'package:notice_board/theme.dart';
+import 'package:notice_board/widgets/storage.dart';
 import 'package:provider/provider.dart';
 
 void main() async{
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
             home: BlocBuilder<AuthenticationBloc,AuthenticationState>(
               builder: (context, state) {
                 if(state is Authenticated){
+                  Storage.user = state.user;
                   return const NavigationScreen();
                 }else if(state is UnAuthenticatedState){
                   return  const WelcomeScreen();

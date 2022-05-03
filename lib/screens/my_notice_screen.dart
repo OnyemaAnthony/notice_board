@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
 import 'package:notice_board/utilities.dart';
-
 import '../blocs/authentication/authentication_bloc.dart';
 import '../models/notice_model.dart';
 import '../models/user_model.dart';
@@ -18,9 +17,13 @@ class MyNoticeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = (BlocProvider.of<AuthenticationBloc>(context)
-        .state
-        .props[0] as UserModel);
+    var state = BlocProvider.of<AuthenticationBloc>(context);
+
+      UserModel user =state is Authenticated? (BlocProvider
+          .of<AuthenticationBloc>(context)
+          .state
+          .props[0] as UserModel):UserModel();
+
     return BlocProvider(
       create: (context) => NoticeBloc(repository: NoticeRepository())
         ..add(FetchPublishersNoticeEvent(user.id!)),
