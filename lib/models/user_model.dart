@@ -9,6 +9,7 @@ class UserModel {
   String? imageURL;
   String? description;
   bool? isAdmin;
+  bool? isRequestedPublisher;
   bool? isPublisher;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -24,8 +25,10 @@ class UserModel {
     this.description,
     this.isAdmin,
     this.isPublisher,
+    this.isRequestedPublisher,
     this.createdAt,
-    this.updatedAt});
+    this.updatedAt
+  });
 
 
   Map<String, dynamic> toMap() {
@@ -36,6 +39,7 @@ class UserModel {
       'email':email,
       'description': description,
       'isAdmin': isAdmin,
+      'isRequestedPublisher':isRequestedPublisher,
       'isPublisher': isPublisher,
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
@@ -50,6 +54,7 @@ class UserModel {
      email = user.data()!['email'],
       description =user.data()! ['description'],
       isAdmin =user.data()! ['isAdmin'],
+        isRequestedPublisher= user.data()!['isRequestedPublisher'],
       isPublisher =user.data()! ['isPublisher'],
       createdAt =user.data()! ['createdAt']?.toDate(),
       updatedAt =user.data()! ['updatedAt']?.toDate();
