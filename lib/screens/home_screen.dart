@@ -8,8 +8,6 @@ import 'package:notice_board/screens/create_notice_screen.dart';
 import 'package:notice_board/screens/notice_detail_screen.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/notice_list.dart';
-import 'package:notice_board/widgets/storage.dart';
-
 import '../blocs/authentication/authentication_bloc.dart';
 import '../models/user_model.dart';
 

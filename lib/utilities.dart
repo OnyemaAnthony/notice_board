@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:notice_board/widgets/storage.dart';
+
+import 'blocs/authentication/authentication_bloc.dart';
+import 'models/user_model.dart';
 
 class Utilities {
 
@@ -25,6 +30,16 @@ class Utilities {
 
   static void push(Widget screen, BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => screen));
+  }
+  static UserModel? getUser(BuildContext context){
+      return (BlocProvider.of<AuthenticationBloc>(context).state.props[0] as UserModel);
+  }
+  static bool isAuthenticated(BuildContext context){
+    var state = BlocProvider.of<AuthenticationBloc>(context);
+    return state is Authenticated;
+
+
+
   }
 
   static Widget showCircularLoader(String message) {

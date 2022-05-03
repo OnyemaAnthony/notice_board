@@ -52,9 +52,9 @@ class UserRepository {
   User? getCurrentUser() {
     return firebaseAuth!.currentUser;
   }
-  Future<void>updateUserToPublisher(String noticeId,Map<String,dynamic>user)async{
+  Future<void>updateUserToPublisher(String userId,Map<String,dynamic>user)async{
     try {
-      await FirebaseFirestore.instance.collection('users').doc(noticeId).update(user);
+      await FirebaseFirestore.instance.collection('Users').doc(userId).update(user);
     } catch (e) {
       print(e.toString());
     }

@@ -22,17 +22,10 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
   late AuthenticationBloc authenticationBloc;
   @override
   Widget build(BuildContext context) {
-    var state = BlocProvider.of<AuthenticationBloc>(context);
-
-      UserModel user =state is Authenticated? (BlocProvider
-          .of<AuthenticationBloc>(context)
-          .state
-          .props[0] as UserModel):UserModel();
-
     return BlocProvider(
-      create: (context) => NoticeBloc(repository: NoticeRepository())
-        ..add(FetchPublishersNoticeEvent(Storage.user!.id!)),
-      child: Builder(builder: (BuildContext context) {
+      create: (BuildContext context) => NoticeBloc(repository: NoticeRepository())
+        ..add(FetchPublishersNoticeEvent('xWdpMjDYpgQeCSm1nRZy')),
+      child: Builder(builder: (BuildContext ctx) {
         authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
         return Scaffold(
           appBar: AppBar(
@@ -42,16 +35,16 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
           body: BlocConsumer<NoticeBloc, NoticeState>(
             listener: (context,state){
               if(state is UserUpdatedState){
-               showAlert(context);
+              // return showAlert(context);
               }
             },
             builder: (context, state) {
               if (state is NoticeLoadingState) {
                 return Utilities.showCircularLoader('Fetching your Notices...');
               } else if (state is NoticeLoadedState) {
-                return user.isPublisher!
+                return Utilities.getUser(ctx)!.isPublisher!
                     ? buildPublishersList(state.noticeDocs)
-                    : unregisteredPublisher(context);
+                    :  unregisteredPublisher(context);
               }
               return Container();
             },
@@ -62,23 +55,31 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
   }
 
   Widget unregisteredPublisher(BuildContext context) {
-    return Column(
+    return Utilities.getUser(context)!.isRequestedPublisher!?const Center(child: Text('You have requested to become a publisher please wait for admin to review your request'),): Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 13),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(5)),
-            border: Border.all(color: Colors.white, width: 2),
-          ),
-          child: GestureDetector(
-            onTap: (){
-              becomePublisher(context);
-            },
-            child: const Text(
-              'Become a Publisher',
-              style: TextStyle(fontSize: 20, color: Colors.white),
+        Expanded(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: MediaQuery.of(context).size.width *0.2,
+              padding: const EdgeInsets.all(10),
+              //alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                border: Border.all(color:Colors.white, width: 1),
+              ),
+              child: GestureDetector(
+                onTap: (){
+                  becomePublisher(context);
+                },
+                child: const Text(
+                  'Become a Publisher',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
             ),
           ),
         ),
@@ -150,8 +151,9 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
           'isRequestedPublisher':true,
           'updatedAt':DateTime.now(),
         };
-        authenticationBloc.add(UpdateUserToPublisherEvent(Storage.user!.id!, user));
-        Navigator.pop(context);
+
+        authenticationBloc.add(UpdateUserToPublisherEvent('5BHhISn1QQRXHKqfdLROwiJU49d2', user));
+        Navigator.of(context).pop();
       },
     );
 
