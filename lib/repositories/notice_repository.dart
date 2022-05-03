@@ -49,18 +49,3 @@ class NoticeRepository {
     }
   }
 }
-// Map<String, dynamic> updatedParishInfo = {
-//   'images': parish.images,
-//   'logo': parish.logo,
-//   'name': parish.name,
-//   'address': parish.address,
-//   'bankAccount': parish.bankAccount,
-//   'bankName': parish.bankName,
-//   'priestName': parish.priestName,
-//   'priestPhoneNumber': parish.priestPhoneNumber,
-//   //'geoLocation': parish.geoLocation.data,
-//   'parishPhoneNumber': parish.parishPhoneNumber,
-//   'parishWebsite': parish.parishWebsite,
-//   'parishEmail': parish.parishEmail,
-//   'updatedAt': DateTime.now(),
-// };

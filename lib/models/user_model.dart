@@ -14,49 +14,45 @@ class UserModel {
   DateTime? createdAt;
   DateTime? updatedAt;
 
-
-  UserModel({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.password,
-    this.imageURL,
-    this.description,
-    this.isAdmin,
-    this.isPublisher,
-    this.isRequestedPublisher,
-    this.createdAt,
-    this.updatedAt
-  });
-
+  UserModel(
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.password,
+      this.imageURL,
+      this.description,
+      this.isAdmin,
+      this.isPublisher,
+      this.isRequestedPublisher,
+      this.createdAt,
+      this.updatedAt});
 
   Map<String, dynamic> toMap() {
     return {
       'firstName': firstName,
       'lastName': lastName,
       'imageURL': imageURL,
-      'email':email,
+      'email': email,
       'description': description,
       'isAdmin': isAdmin,
-      'isRequestedPublisher':isRequestedPublisher,
+      'isRequestedPublisher': isRequestedPublisher,
       'isPublisher': isPublisher,
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
     };
   }
 
-  UserModel.fromFireStore(dynamic user):
-       id = user.id,
-      firstName= user.data()! ['firstName'],
-      lastName =user.data()! ['lastName'],
-      imageURL =user.data()! ['imageURL'],
-     email = user.data()!['email'],
-      description =user.data()! ['description'],
-      isAdmin =user.data()! ['isAdmin'],
-        isRequestedPublisher= user.data()!['isRequestedPublisher'],
-      isPublisher =user.data()! ['isPublisher'],
-      createdAt =user.data()! ['createdAt']?.toDate(),
-      updatedAt =user.data()! ['updatedAt']?.toDate();
-
-  }
+  UserModel.fromFireStore(dynamic user)
+      : id = user.id,
+        firstName = user.data()!['firstName'],
+        lastName = user.data()!['lastName'],
+        imageURL = user.data()!['imageURL'],
+        email = user.data()!['email'],
+        description = user.data()!['description'],
+        isAdmin = user.data()!['isAdmin'],
+        isRequestedPublisher = user.data()!['isRequestedPublisher'],
+        isPublisher = user.data()!['isPublisher'],
+        createdAt = user.data()!['createdAt']?.toDate(),
+        updatedAt = user.data()!['updatedAt']?.toDate();
+}

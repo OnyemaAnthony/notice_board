@@ -14,7 +14,13 @@ class LogInEvent extends AuthenticationEvent{
 
   const LogInEvent(this.email, this.password);
 
+}
 
+class UpdateUserToPublisherEvent extends AuthenticationEvent{
+  final String userId;
+  final Map<String, dynamic>user;
+
+  const UpdateUserToPublisherEvent(this.userId, this.user);
 
 }
 class SignUpEvent extends AuthenticationEvent{

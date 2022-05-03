@@ -52,7 +52,14 @@ class UserRepository {
   User? getCurrentUser() {
     return firebaseAuth!.currentUser;
   }
+  Future<void>updateUserToPublisher(String noticeId,Map<String,dynamic>user)async{
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(noticeId).update(user);
+    } catch (e) {
+      print(e.toString());
+    }
 
+  }
   Future<void> saveUser(UserModel user, String userUID) async {
     try {
       if (!await userDetailExist(userUID)) {

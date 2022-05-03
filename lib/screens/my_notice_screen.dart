@@ -4,17 +4,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
 import 'package:notice_board/utilities.dart';
+import 'package:notice_board/widgets/storage.dart';
 import '../blocs/authentication/authentication_bloc.dart';
 import '../models/notice_model.dart';
 import '../models/user_model.dart';
 import '../widgets/notice_list.dart';
 import 'notice_detail_screen.dart';
 
-class MyNoticeScreen extends StatelessWidget {
+class MyNoticeScreen extends StatefulWidget {
   const MyNoticeScreen({Key? key}) : super(key: key);
 
-  //thanks for wanting to be a publisher in our platform, your request will be approved by the admin in the next 24 hours
+  @override
+  State<MyNoticeScreen> createState() => _MyNoticeScreenState();
+}
 
+class _MyNoticeScreenState extends State<MyNoticeScreen> {
+  late AuthenticationBloc authenticationBloc;
   @override
   Widget build(BuildContext context) {
     var state = BlocProvider.of<AuthenticationBloc>(context);
@@ -28,12 +33,18 @@ class MyNoticeScreen extends StatelessWidget {
       create: (context) => NoticeBloc(repository: NoticeRepository())
         ..add(FetchPublishersNoticeEvent(user.id!)),
       child: Builder(builder: (BuildContext context) {
+        authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
         return Scaffold(
           appBar: AppBar(
             title: const Text('My Notices'),
             centerTitle: true,
           ),
-          body: BlocBuilder<NoticeBloc, NoticeState>(
+          body: BlocConsumer<NoticeBloc, NoticeState>(
+            listener: (context,state){
+              if(state is UserUpdatedState){
+               showAlert(context);
+              }
+            },
             builder: (context, state) {
               if (state is NoticeLoadingState) {
                 return Utilities.showCircularLoader('Fetching your Notices...');
@@ -101,6 +112,30 @@ class MyNoticeScreen extends StatelessWidget {
   }
 
 
+  void showAlert(BuildContext context) {
+    Widget continueButton = FlatButton(
+      child: const Text('Yes'),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: const Text('Your request has been received'),
+      content:
+      const Text('thanks for wanting to be a publisher in our platform, your request will be approved by the admin in the next 24 hour'),
+      actions: [
+        continueButton,
+      ],
+    );
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   void becomePublisher(BuildContext context) {
     Widget cancelButton = FlatButton(
       child: const Text('No'),
@@ -111,8 +146,11 @@ class MyNoticeScreen extends StatelessWidget {
     Widget continueButton = FlatButton(
       child: const Text('Yes'),
       onPressed: () {
-        //noticeBloc.add(DeleteNoticeEvent(widget.notice!.id!));
-        Navigator.pop(context);
+        Map<String,dynamic>user = {
+          'isRequestedPublisher':true,
+          'updatedAt':DateTime.now(),
+        };
+        authenticationBloc.add(UpdateUserToPublisherEvent(Storage.user!.id!, user));
         Navigator.pop(context);
       },
     );

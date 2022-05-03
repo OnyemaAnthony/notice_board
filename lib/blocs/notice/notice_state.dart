@@ -21,9 +21,9 @@ class NoticeLoadedState extends NoticeState{
 
   const NoticeLoadedState(this.noticeDocs);
 
-
-
 }
+
+
 class NoticeErrorSate extends NoticeState{
   final String errorMessage;
 

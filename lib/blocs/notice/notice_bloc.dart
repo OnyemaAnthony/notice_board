@@ -19,6 +19,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     on<CreateNoticeEvent>(_mapCreateNoticeEventToState);
     on<DeleteNoticeEvent>(_mapDeleteNoticeEventToState);
     on<FetchPublishersNoticeEvent>(_mapFetchPublishersNoticeEventToState);
+
   }
 
   FutureOr<void> _mapGetAllNoticeEventToState(GetAllNoticeEvent event, Emitter<NoticeState> emit)async {
@@ -76,4 +77,5 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     }
     
   }
+
 }

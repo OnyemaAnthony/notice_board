@@ -19,6 +19,9 @@ class Authenticated extends AuthenticationState{
   List<Object?> get props => [user];
 }
 
+class UserUpdatedState extends AuthenticationState{
+
+}
 class UnAuthenticatedState extends AuthenticationState{
 
 }

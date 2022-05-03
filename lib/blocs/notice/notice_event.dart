@@ -21,6 +21,7 @@ class NoticeUpdated extends NoticeEvent{
 class GetAllNoticeEvent extends NoticeEvent{
 
 }
+
 class DeleteNoticeEvent extends NoticeEvent{
   final String noticeId;
 

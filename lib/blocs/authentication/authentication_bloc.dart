@@ -5,6 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/repositories/user_repository.dart';
 
+import '../notice/notice_bloc.dart';
+
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
@@ -15,7 +17,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<LogInEvent>(_mapLoginEventToState);
     on<SignUpEvent>(_mapSignUpEventToState);
     on<LogOutEvent>(_mapLogOutEventToState);
-
+    on<UpdateUserToPublisherEvent>(_mapUpdateUserToPublisherEventToState);
   }
 
   FutureOr<void> _mapAppStartedEventToState(AppStartedEvent event, Emitter<AuthenticationState> emit) async{
@@ -41,6 +43,17 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     }catch(e){
       emit(AuthenticationErrorState(e.toString()));
     }
+  }
+
+  FutureOr<void> _mapUpdateUserToPublisherEventToState(UpdateUserToPublisherEvent event, Emitter<AuthenticationState> emit) async{
+    emit(AuthenticationLoadingState());
+    try {
+      await repository!.updateUserToPublisher(event.userId, event.user);
+      emit(UserUpdatedState());
+    } catch (e) {
+      emit(AuthenticationErrorState(e.toString()));
+    }
+
   }
 
   FutureOr<void> _mapSignUpEventToState(SignUpEvent event, Emitter<AuthenticationState> emit)async {
