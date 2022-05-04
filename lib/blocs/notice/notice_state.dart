@@ -16,6 +16,8 @@ class NoticeLoadingState extends NoticeState{
  class NoticeAddedState extends NoticeState{
 
  }
+
+
 class NoticeLoadedState extends NoticeState{
   final List<DocumentSnapshot> noticeDocs;
 
