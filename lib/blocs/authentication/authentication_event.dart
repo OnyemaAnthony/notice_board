@@ -21,6 +21,11 @@ class UpdateUserToPublisherEvent extends AuthenticationEvent{
   final Map<String, dynamic>user;
 
   const UpdateUserToPublisherEvent(this.userId, this.user);
+}
+
+class FetchAllUsersEven extends AuthenticationEvent{
+}
+class FetchPublishersRequestEvent extends AuthenticationEvent{
 
 }
 class SignUpEvent extends AuthenticationEvent{

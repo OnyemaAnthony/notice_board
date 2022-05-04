@@ -28,6 +28,9 @@ class DeleteNoticeEvent extends NoticeEvent{
   const DeleteNoticeEvent(this.noticeId);
 
 }
+class FetchNoticeRequestEvent extends NoticeEvent{
+
+}
 class FetchPublishersNoticeEvent extends NoticeEvent{
   final String publishersId;
 
