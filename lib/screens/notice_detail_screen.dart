@@ -4,8 +4,7 @@ import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
 import 'package:notice_board/utilities.dart';
-
-import '../blocs/authentication/authentication_bloc.dart';
+import 'package:notice_board/widgets/storage.dart';
 import '../models/user_model.dart';
 
 class NoticeDetailScreen extends StatefulWidget {
@@ -22,17 +21,14 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = (BlocProvider
-        .of<AuthenticationBloc>(context)
-        .state
-        .props[0] as UserModel);
+    UserModel? user = Storage.user;
     return BlocProvider(
       create: (BuildContext context) => NoticeBloc(repository: NoticeRepository()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.notice!.title!),
           actions: [
-            user.isPublisher! ||user.id ==widget.notice!.createdBy!? Padding(
+            user!.isPublisher! ||user.id ==widget.notice!.createdBy!? Padding(
               padding: const EdgeInsets.only(right: 20),
               child: GestureDetector(
                 onTap: () {
