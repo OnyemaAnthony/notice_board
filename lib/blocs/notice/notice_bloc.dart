@@ -90,6 +90,5 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     } catch (e) {
       emit(NoticeErrorSate(e.toString()));
     }
-
   }
 }

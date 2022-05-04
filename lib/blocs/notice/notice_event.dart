@@ -16,7 +16,6 @@ class NoticeUpdated extends NoticeEvent{
   final List<DocumentSnapshot> noticeDocs;
 
  const NoticeUpdated(this.noticeDocs);
-
 }
 class GetAllNoticeEvent extends NoticeEvent{
 

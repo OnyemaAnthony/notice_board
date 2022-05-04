@@ -22,8 +22,12 @@ class UpdateUserToPublisherEvent extends AuthenticationEvent{
 
   const UpdateUserToPublisherEvent(this.userId, this.user);
 }
+class AuthenticationUpdated extends AuthenticationEvent{
+  final List<DocumentSnapshot> noticeDocs;
 
-class FetchAllUsersEven extends AuthenticationEvent{
+  const AuthenticationUpdated(this.noticeDocs);
+}
+class FetchAllUsersEvent extends AuthenticationEvent{
 }
 class FetchPublishersRequestEvent extends AuthenticationEvent{
 

@@ -29,12 +29,12 @@ class AuthenticationErrorState extends AuthenticationState{
   final String errorMessage;
 
  const AuthenticationErrorState(this.errorMessage);
+}
+class UserLoadedState extends AuthenticationState{
+  final List<UserModel> users;
 
-
+  const UserLoadedState(this.users);
 }
 
-
 class AuthenticationLoadingState extends AuthenticationState{
-
-
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/repositories/user_repository.dart';
@@ -12,12 +13,16 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
   UserRepository? repository;
+  StreamSubscription? userStreamSubscription;
   AuthenticationBloc({this.repository}) : super(AuthenticationInitial()) {
     on<AppStartedEvent>(_mapAppStartedEventToState);
     on<LogInEvent>(_mapLoginEventToState);
     on<SignUpEvent>(_mapSignUpEventToState);
     on<LogOutEvent>(_mapLogOutEventToState);
     on<UpdateUserToPublisherEvent>(_mapUpdateUserToPublisherEventToState);
+    on<FetchPublishersRequestEvent>(_mapFetchPublishersRequestEventToState);
+    on<FetchAllUsersEvent>(_mapFetchAllUsersEventToState);
+    on<AuthenticationUpdated>(_mapAuthenticationUpdatedToState);
   }
 
   FutureOr<void> _mapAppStartedEventToState(AppStartedEvent event, Emitter<AuthenticationState> emit) async{
@@ -75,6 +80,38 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       await repository!.signOut();
       emit(UnAuthenticatedState());
 
+    }catch(e){
+      emit(UnAuthenticatedState());
+    }
+  }
+
+  FutureOr<void> _mapFetchPublishersRequestEventToState(FetchPublishersRequestEvent event, Emitter<AuthenticationState> emit) async{
+    emit(AuthenticationLoadingState());
+    try {
+      userStreamSubscription?.cancel();
+      userStreamSubscription = repository!.fetchPublishersRequest().listen((noticeDoc) {
+        add(AuthenticationUpdated(noticeDoc.docs));
+      });
+    } catch (e) {
+      emit(AuthenticationErrorState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapFetchAllUsersEventToState(FetchAllUsersEvent event, Emitter<AuthenticationState> emit) async{
+    emit(AuthenticationLoadingState());
+    try{
+      List<UserModel> users = await repository!.fetchAllUsers();
+      emit(UserLoadedState(users));
+    }catch(e){
+      emit(UnAuthenticatedState());
+    }
+  }
+
+  FutureOr<void> _mapAuthenticationUpdatedToState(AuthenticationUpdated event, Emitter<AuthenticationState> emit) async{
+    emit(AuthenticationLoadingState());
+    try{
+      List<UserModel> users = event.noticeDocs.map((user) =>UserModel.fromFireStore(user)).toList();
+      emit(UserLoadedState(users));
     }catch(e){
       emit(UnAuthenticatedState());
     }
