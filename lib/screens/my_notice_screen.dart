@@ -55,7 +55,7 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
   }
 
   Widget unregisteredPublisher(BuildContext context) {
-    return Utilities.getUser(context)!.isRequestedPublisher!?const Center(child: Text('You have requested to become a publisher please wait for admin to review your request'),): Column(
+    return Storage.user!.isRequestedPublisher!?const Center(child: Text('You have requested to become a publisher please wait for admin to review your request'),): Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -152,7 +152,7 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
           'updatedAt':DateTime.now(),
         };
 
-        authenticationBloc.add(UpdateUserToPublisherEvent('5BHhISn1QQRXHKqfdLROwiJU49d2', user));
+        authenticationBloc.add(UpdateUserToPublisherEvent(Storage.user!.id!, user));
         Navigator.of(context).pop();
       },
     );

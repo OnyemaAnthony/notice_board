@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/theme.dart';
-import 'package:notice_board/utilities.dart';
+import 'package:notice_board/widgets/storage.dart';
 import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -15,12 +15,10 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   String imageURL =
       'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
-  String face =
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8ZmFjZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60';
-
+  String face ='https://firebasestorage.googleapis.com/v0/b/notice-board-d385d.appspot.com/o/Pictures%2F5BHhISn1QQRXHKqfdLROwiJU49d2%2F1651402738068?alt=media&token=705e82d8-1885-4a86-b8e0-26093c004bf5';
   @override
   Widget build(BuildContext context) {
-    UserModel? user = Utilities.getUser(context);
+    UserModel? user = Storage.user;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -54,7 +52,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   width: 12,
                 ),
                 CircleAvatar(
-                  backgroundImage: CachedNetworkImageProvider(face),
+                  backgroundImage: CachedNetworkImageProvider(user.imageURL!),
                 ),
                 const SizedBox(
                   width: 12,
@@ -121,22 +119,22 @@ class _AccountScreenState extends State<AccountScreen> {
                 UserTile(icon: Icons.call,color: Colors.green,title: 'Phone Number',tIcon: Icons.arrow_forward_ios,subTitle: user.phoneNumber,),
                 UserTile(icon: Icons.local_shipping,color: Colors.indigo,title: 'Address',tIcon: Icons.arrow_forward_ios,subTitle: user.description,),
                 UserTile(icon: Icons.watch_later,color: Colors.red,title: 'joined Date',tIcon: Icons.arrow_forward_ios,subTitle: user.createdAt.toString(),),
-
+                Align(
+                  child: Container(
+                    alignment: Alignment.center,
+                    width:  double.infinity,
+                    height: MediaQuery.of(context).size.height *0.05,
+                    decoration: BoxDecoration(
+                       color: Theme.of(context).colorScheme.secondary,
+                    ),
+                    child: const Text('Admin Panel'),
+                  ),
+                )
 
               ]),
             ),
           ),
-          Align(
-            child: Container(
-              alignment: Alignment.center,
-              width:  double.infinity,
-              height: MediaQuery.of(context).size.height *0.05,
-              decoration: BoxDecoration(
-                 color: Theme.of(context).colorScheme.secondary,
-              ),
-              child: const Text('Admin Panel'),
-            ),
-          )
+
         ],
       ),
     );
