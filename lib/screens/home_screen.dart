@@ -8,12 +8,13 @@ import 'package:notice_board/screens/create_notice_screen.dart';
 import 'package:notice_board/screens/notice_detail_screen.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/notice_list.dart';
+import 'package:notice_board/widgets/storage.dart';
 import '../blocs/authentication/authentication_bloc.dart';
 import '../models/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  final UserModel? user;
-  const HomeScreen({Key? key,this.user}) : super(key: key);
+
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -24,10 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-   print("the store ${widget.user!.toMap()}");
-    var state = BlocProvider.of<AuthenticationBloc>(context);
     return Scaffold(
-      floatingActionButton:state is Authenticated && (BlocProvider.of<AuthenticationBloc>(context).state.props[0]as UserModel).isPublisher != null && (BlocProvider.of<AuthenticationBloc>(context).state.props[0]as UserModel).isPublisher!
+      floatingActionButton:Storage.user!.isPublisher!
           ? FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
