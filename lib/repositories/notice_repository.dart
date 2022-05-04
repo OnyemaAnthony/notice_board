@@ -19,9 +19,16 @@ class NoticeRepository {
       return FirebaseFirestore.instance
           .collection('notices')
           .where('createdBy', isEqualTo: publishersId)
-          .where('isVisible', isEqualTo: false)
+          .where('isVisible', isEqualTo: true)
           .snapshots();
     } catch (e) {
+      return throw Exception(e.toString());
+    }
+  }
+  Stream<QuerySnapshot>fetchNoticeRequest(){
+    try{
+      return FirebaseFirestore.instance.collection('Notices').where('isVisible',isEqualTo: false).snapshots();
+    }catch(e){
       return throw Exception(e.toString());
     }
   }
@@ -36,6 +43,7 @@ class NoticeRepository {
       print(e.toString());
     }
   }
+
 
   Future<void> deleteNotice(String noticeId) async {
     try {
