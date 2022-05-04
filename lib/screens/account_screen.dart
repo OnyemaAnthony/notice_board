@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/theme.dart';
+import 'package:notice_board/utilities.dart';
 import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -18,6 +20,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserModel? user = Utilities.getUser(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -43,7 +46,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             height: 85,
                             padding: const EdgeInsets.all(15),
                           ),
-                      imageUrl: imageURL, fit: BoxFit.cover),
+                      imageUrl: user!.imageURL!, fit: BoxFit.cover),
             ),
             title: Row(
               children: [
@@ -56,7 +59,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 const SizedBox(
                   width: 12,
                 ),
-                const Text('Goz man')
+                 Text(user.firstName!)
               ],
             ),
           ),
@@ -114,15 +117,26 @@ class _AccountScreenState extends State<AccountScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                const UserTile(icon: Icons.email,color: Colors.red,title: 'Email',tIcon: Icons.arrow_forward_ios,subTitle: 'Email',),
-                const UserTile(icon: Icons.call,color: Colors.green,title: 'Phone Number',tIcon: Icons.arrow_forward_ios,subTitle: 'Number',),
-                const UserTile(icon: Icons.local_shipping,color: Colors.indigo,title: 'Address',tIcon: Icons.arrow_forward_ios,subTitle: 'Address',),
-                const UserTile(icon: Icons.watch_later,color: Colors.red,title: 'joined Date',tIcon: Icons.arrow_forward_ios,subTitle: 'date',),
+                UserTile(icon: Icons.email,color: Colors.red,title: 'Email',tIcon: Icons.arrow_forward_ios,subTitle: user.email,),
+                UserTile(icon: Icons.call,color: Colors.green,title: 'Phone Number',tIcon: Icons.arrow_forward_ios,subTitle: user.phoneNumber,),
+                UserTile(icon: Icons.local_shipping,color: Colors.indigo,title: 'Address',tIcon: Icons.arrow_forward_ios,subTitle: user.description,),
+                UserTile(icon: Icons.watch_later,color: Colors.red,title: 'joined Date',tIcon: Icons.arrow_forward_ios,subTitle: user.createdAt.toString(),),
 
 
               ]),
             ),
           ),
+          Align(
+            child: Container(
+              alignment: Alignment.center,
+              width:  double.infinity,
+              height: MediaQuery.of(context).size.height *0.05,
+              decoration: BoxDecoration(
+                 color: Theme.of(context).colorScheme.secondary,
+              ),
+              child: const Text('Admin Panel'),
+            ),
+          )
         ],
       ),
     );

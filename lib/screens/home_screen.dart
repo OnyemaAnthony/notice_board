@@ -12,7 +12,8 @@ import '../blocs/authentication/authentication_bloc.dart';
 import '../models/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final UserModel? user;
+  const HomeScreen({Key? key,this.user}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-   // print("the store ${Storage.user!.id}");
+   print("the store ${widget.user!.toMap()}");
     var state = BlocProvider.of<AuthenticationBloc>(context);
     return Scaffold(
       floatingActionButton:state is Authenticated && (BlocProvider.of<AuthenticationBloc>(context).state.props[0]as UserModel).isPublisher != null && (BlocProvider.of<AuthenticationBloc>(context).state.props[0]as UserModel).isPublisher!

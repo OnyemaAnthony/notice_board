@@ -8,6 +8,7 @@ import 'package:notice_board/repositories/user_repository.dart';
 import 'package:notice_board/screens/login_screen.dart';
 import 'package:notice_board/screens/navigation_screen.dart';
 import 'package:notice_board/utilities.dart';
+import 'package:notice_board/widgets/storage.dart';
 
 import '../widgets/curve.dart';
 
@@ -93,6 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child:  BlocConsumer<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
           if(state is Authenticated){
+            Storage.user = state.user;
             Utilities.pushReplace(const NavigationScreen(), context);
           }
         },

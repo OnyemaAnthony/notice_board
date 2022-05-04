@@ -8,6 +8,7 @@ class UserModel {
   String? password;
   String? imageURL;
   String? description;
+  String? phoneNumber;
   bool? isAdmin;
   bool? isRequestedPublisher;
   bool? isPublisher;
@@ -22,6 +23,7 @@ class UserModel {
       this.password,
       this.imageURL,
       this.description,
+        this.phoneNumber,
       this.isAdmin,
       this.isPublisher,
       this.isRequestedPublisher,
@@ -35,6 +37,7 @@ class UserModel {
       'imageURL': imageURL,
       'email': email,
       'description': description,
+      'phoneNumber':phoneNumber,
       'isAdmin': isAdmin,
       'isRequestedPublisher': isRequestedPublisher,
       'isPublisher': isPublisher,
@@ -50,6 +53,7 @@ class UserModel {
         imageURL = user.data()!['imageURL'],
         email = user.data()!['email'],
         description = user.data()!['description'],
+        phoneNumber= user.data()!['phoneNumber'],
         isAdmin = user.data()!['isAdmin'],
         isRequestedPublisher = user.data()!['isRequestedPublisher'],
         isPublisher = user.data()!['isPublisher'],

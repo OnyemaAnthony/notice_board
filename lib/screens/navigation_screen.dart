@@ -3,6 +3,7 @@ import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/screens/account_screen.dart';
 import 'package:notice_board/screens/home_screen.dart';
 import 'package:notice_board/screens/my_notice_screen.dart';
+import 'package:notice_board/widgets/storage.dart';
 class NavigationScreen extends StatefulWidget {
   final UserModel? user;
   const NavigationScreen({Key? key,this.user}) : super(key: key);
@@ -12,14 +13,16 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
+
   int currentIndex = 0;
   void onTap(int selectedIndex){
     setState(() {
       currentIndex = selectedIndex;
     });
   }
+
   final List<Widget> _screens = [
-    const HomeScreen(),
+    HomeScreen(user: Storage.user,),
     const MyNoticeScreen(),
     const AccountScreen(),
   ];
