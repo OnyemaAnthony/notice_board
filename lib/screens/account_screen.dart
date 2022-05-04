@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/screens/tab_screen.dart';
 import 'package:notice_board/theme.dart';
@@ -15,7 +16,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  //publishers request,notice request,users
+  final DateFormat dateFormatter = DateFormat('yMMMEd');
   String imageURL =
       'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
   String face ='https://firebasestorage.googleapis.com/v0/b/notice-board-d385d.appspot.com/o/Pictures%2F5BHhISn1QQRXHKqfdLROwiJU49d2%2F1651402738068?alt=media&token=705e82d8-1885-4a86-b8e0-26093c004bf5';
@@ -121,21 +122,24 @@ class _AccountScreenState extends State<AccountScreen> {
                 UserTile(icon: Icons.email,color: Colors.red,title: 'Email',tIcon: Icons.arrow_forward_ios,subTitle: user.email,),
                 UserTile(icon: Icons.call,color: Colors.green,title: 'Phone Number',tIcon: Icons.arrow_forward_ios,subTitle: user.phoneNumber,),
                 UserTile(icon: Icons.local_shipping,color: Colors.indigo,title: 'Address',tIcon: Icons.arrow_forward_ios,subTitle: user.description,),
-                UserTile(icon: Icons.watch_later,color: Colors.red,title: 'joined Date',tIcon: Icons.arrow_forward_ios,subTitle: user.createdAt.toString(),),
-                Align(
-                  child: GestureDetector(
-                    onTap: (){
-                      Utilities.push(const TabScreen(), context);
+                UserTile(icon: Icons.watch_later,color: Colors.red,title: 'joined Date',tIcon: Icons.arrow_forward_ios,subTitle: dateFormatter.format(user.createdAt!),),
+                Visibility(
+                  visible: user.isAdmin!,
+                  child: Align(
+                    child: GestureDetector(
+                      onTap: (){
+                        Utilities.push(const TabScreen(), context);
 
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width:  double.infinity,
-                      height: MediaQuery.of(context).size.height *0.08,
-                      decoration: BoxDecoration(
-                         color: Theme.of(context).primaryColor,
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width:  double.infinity,
+                        height: MediaQuery.of(context).size.height *0.08,
+                        decoration: BoxDecoration(
+                           color: Theme.of(context).primaryColor,
+                        ),
+                        child: const Text('Admin Panel'),
                       ),
-                      child: const Text('Admin Panel'),
                     ),
                   ),
                 )
