@@ -66,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               obscureText: isPassword,
               decoration: const InputDecoration(
                   border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
+
                   filled: true))
         ],
       ),
@@ -137,7 +137,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Text(
               'Login',
               style: TextStyle(
-                  color: Color(0xfff79c4f),
+
                   fontSize: 13,
                   fontWeight: FontWeight.w600),
             ),

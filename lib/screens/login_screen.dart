@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: isPassword,
               decoration: const InputDecoration(
                   border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
+                  //fillColor: Color(0xfff3f3f4),
                   filled: true))
         ],
       ),
@@ -99,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         child:  const Text(
           'Login',
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(fontSize: 20),
         ),
       );
   },

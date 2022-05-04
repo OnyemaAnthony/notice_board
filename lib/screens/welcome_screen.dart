@@ -26,7 +26,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
 
-            color: Colors.white),
+        ),
         child: const Text(
           'Login',
           style: TextStyle(fontSize: 20),
@@ -54,7 +54,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           },
           child: const Text(
             'Register now',
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: 20),
           ),
         ),
       ),
