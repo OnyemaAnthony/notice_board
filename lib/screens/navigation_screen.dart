@@ -22,7 +22,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   }
 
   final List<Widget> _screens = [
-    HomeScreen(),
+    const HomeScreen(),
     const MyNoticeScreen(),
     const AccountScreen(),
   ];

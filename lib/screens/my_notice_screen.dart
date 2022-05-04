@@ -24,7 +24,7 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => NoticeBloc(repository: NoticeRepository())
-        ..add(FetchPublishersNoticeEvent('xWdpMjDYpgQeCSm1nRZy')),
+        ..add(FetchPublishersNoticeEvent(Storage.user!.id!)),
       child: Builder(builder: (BuildContext ctx) {
         authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
         return Scaffold(
@@ -42,7 +42,7 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
               if (state is NoticeLoadingState) {
                 return Utilities.showCircularLoader('Fetching your Notices...');
               } else if (state is NoticeLoadedState) {
-                return Utilities.getUser(ctx)!.isPublisher!
+                return Storage.user!.isPublisher!
                     ? buildPublishersList(state.noticeDocs)
                     :  unregisteredPublisher(context);
               }
