@@ -33,7 +33,7 @@ class _NoticeRequestScreenState extends State<NoticeRequestScreen> {
                   }else if(state is NoticeLoadedState){
                     return buildNoticeList(state.noticeDocs);
                   }
-                  return Center();
+                  return Container();
                 },
               ),
             );
