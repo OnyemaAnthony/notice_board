@@ -10,8 +10,10 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Builder(
         builder: (BuildContext context) {
+          BlocProvider.of<AuthenticationBloc>(context).add(FetchAllUsersEvent());
           return Scaffold(
             appBar: AppBar(
               title: const Text('Notice Request'),
