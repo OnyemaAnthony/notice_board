@@ -16,7 +16,7 @@ class UserScreen extends StatelessWidget {
           BlocProvider.of<AuthenticationBloc>(context).add(FetchAllUsersEvent());
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Notice Request'),
+              title: const Text('Users Screen'),
             ),
             body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
