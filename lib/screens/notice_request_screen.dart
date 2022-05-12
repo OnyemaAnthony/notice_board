@@ -23,9 +23,6 @@ class _NoticeRequestScreenState extends State<NoticeRequestScreen> {
       child: Builder(
           builder: (BuildContext context) {
             return Scaffold(
-              appBar: AppBar(
-                title: const Text('Notice Request'),
-              ),
               body: BlocBuilder<NoticeBloc, NoticeState>(
                 builder: (context, state) {
                   if(state is NoticeLoadingState){

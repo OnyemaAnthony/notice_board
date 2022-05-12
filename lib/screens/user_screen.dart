@@ -15,9 +15,6 @@ class UserScreen extends StatelessWidget {
         builder: (BuildContext context) {
           BlocProvider.of<AuthenticationBloc>(context).add(FetchAllUsersEvent());
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Users Screen'),
-            ),
             body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 if(state is AuthenticationLoadingState){

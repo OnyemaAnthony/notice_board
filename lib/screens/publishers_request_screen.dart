@@ -19,9 +19,6 @@ class _PublishersRequestScreenState extends State<PublishersRequestScreen> {
         builder: (BuildContext context) {
           BlocProvider.of<AuthenticationBloc>(context).add(FetchPublishersRequestEvent());
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Publishers Request'),
-            ),
             body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
               builder: (context, state) {
                 if(state is AuthenticationLoadingState){
