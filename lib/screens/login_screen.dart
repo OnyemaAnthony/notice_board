@@ -18,29 +18,23 @@ const  LoginScreen({Key? key}) : super(key: key);
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   late AuthenticationBloc authenticationBloc;
   Widget _backButton() {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
-            ),
-            const Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
-          ],
-        ),
+      child: Row(
+        children: <Widget>[
+
+        ],
       ),
     );
   }
 
-  Widget _entryField(String title, {bool isPassword = false}) {
+  Widget _entryField(String title,TextEditingController controller, {bool isPassword = false}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -54,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 10,
           ),
           TextField(
+            controller: controller,
               obscureText: isPassword,
               decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -95,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     return TextButton(
         onPressed: (){
-          authenticationBloc.add(const LogInEvent('anthon@gmail.com','this.tony'));
+          authenticationBloc.add(LogInEvent(emailController.text,passwordController.text));
         },
         child:  const Text(
           'Login',
@@ -177,8 +172,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Email id"),
-        _entryField("Password", isPassword: true),
+        _entryField("Email",emailController),
+        _entryField("Password",passwordController,isPassword: true),
       ],
     );
   }

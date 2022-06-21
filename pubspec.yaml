@@ -42,11 +42,13 @@ dependencies:
   cloud_firestore: ^3.1.10
   firebase_storage: ^10.2.14
   intl: ^0.17.0
+  flutter_slidable: ^0.6.0
   provider: ^6.0.2
   shared_preferences: ^2.0.13
   equatable: ^2.0.3
   fluttertoast: ^8.0.9
   image_picker: ^0.8.4+10
+  timeago: ^3.1.0
 
 dev_dependencies:
   flutter_test:

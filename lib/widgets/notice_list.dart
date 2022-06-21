@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notice_board/models/notice_model.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NoticeList extends StatelessWidget {
   final NoticeModel? notice;
@@ -8,9 +10,6 @@ class NoticeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(child: Text(notice!.title![0]),),
-      title: Text(notice!.title!),
-    );;
+  return const Text('hello world');
   }
 }
