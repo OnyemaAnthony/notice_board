@@ -19,7 +19,7 @@ class _TabScreenState extends State<TabScreen> {
           preferredSize: const Size.fromHeight(60),
           child: Container(
             alignment: Alignment.center,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             child: SafeArea(
               child: Column(
                 children: <Widget>[

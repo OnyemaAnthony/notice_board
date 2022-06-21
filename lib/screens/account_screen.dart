@@ -48,7 +48,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             height: 85,
                             padding: const EdgeInsets.all(15),
                           ),
-                      imageUrl: user!.imageURL!, fit: BoxFit.cover),
+                      imageUrl: imageURL, fit: BoxFit.cover),
             ),
             title: Row(
               children: [
@@ -56,7 +56,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   width: 12,
                 ),
                 CircleAvatar(
-                  backgroundImage: CachedNetworkImageProvider(user.imageURL!),
+                  backgroundImage: CachedNetworkImageProvider(user!.imageURL!),
                 ),
                 const SizedBox(
                   width: 12,
@@ -69,46 +69,22 @@ class _AccountScreenState extends State<AccountScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: ListView(primary: false, shrinkWrap: true, children: [
-                const Text(
-                  'User Bag',
-                  style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                     ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const UserTile(icon: Icons.favorite,color: Colors.red,title: 'Wishlist',tIcon: Icons.arrow_forward_ios),
-                const UserTile(icon: Icons.favorite,color: Colors.deepPurpleAccent,title: 'Cart',tIcon: Icons.arrow_forward_ios),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  'User Settings',
-                  style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                      ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  child: Consumer<ThemeNotifier>(
-                    builder: (context, notifier,_) {
-                      return SwitchListTile.adaptive(
-                        secondary: notifier.isDark? Icon(Icons.dark_mode,color: Colors.amber.shade700,): Icon(Icons.light_mode,color: Colors.amber.shade700,),
-                          title: notifier.isDark ? const Text('Dark Mode'):const Text('Light Mode'),
-                          value: notifier.isDark, onChanged: (value){
-                          notifier.toggleTheme(value);
-                      });
-                    }
-                  ),
-                ),
+                // const Text(
+                //   'User Bag',
+                //   style: TextStyle(
+                //       fontSize: 23,
+                //       fontWeight: FontWeight.bold,
+                //      ),
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+//                const UserTile(icon: Icons.favorite,color: Colors.deepPurpleAccent,title: 'Cart',tIcon: Icons.arrow_forward_ios),
                 const SizedBox(
                   height: 15,
                 ),
+
+
                 const Text(
                   'User Information',
                   style: TextStyle(
@@ -121,8 +97,33 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
                 UserTile(icon: Icons.email,color: Colors.red,title: 'Email',tIcon: Icons.arrow_forward_ios,subTitle: user.email,),
                 UserTile(icon: Icons.call,color: Colors.green,title: 'Phone Number',tIcon: Icons.arrow_forward_ios,subTitle: user.phoneNumber,),
-                UserTile(icon: Icons.local_shipping,color: Colors.indigo,title: 'Address',tIcon: Icons.arrow_forward_ios,subTitle: user.description,),
+                UserTile(icon: Icons.local_shipping,color: Colors.indigo,title: 'About',tIcon: Icons.arrow_forward_ios,subTitle: user.description,),
                 UserTile(icon: Icons.watch_later,color: Colors.red,title: 'joined Date',tIcon: Icons.arrow_forward_ios,subTitle: dateFormatter.format(user.createdAt!),),
+                const Text(
+                  'User Settings',
+                  style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Card(
+                  child: Consumer<ThemeNotifier>(
+                      builder: (context, notifier,_) {
+                        return SwitchListTile.adaptive(
+                            secondary: notifier.isDark? Icon(Icons.dark_mode,color: Colors.amber.shade700,): Icon(Icons.light_mode,color: Colors.amber.shade700,),
+                            title: notifier.isDark ? const Text('Dark Mode'):const Text('Light Mode'),
+                            value: notifier.isDark, onChanged: (value){
+                          notifier.toggleTheme(value);
+                        });
+                      }
+                  ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Visibility(
                   visible: user.isAdmin!,
                   child: Align(
@@ -136,7 +137,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         width:  double.infinity,
                         height: MediaQuery.of(context).size.height *0.08,
                         decoration: BoxDecoration(
-                           color: Theme.of(context).primaryColor,
+                           color: Theme.of(context).buttonTheme.colorScheme!.primary,
                         ),
                         child: const Text('Admin Panel'),
                       ),

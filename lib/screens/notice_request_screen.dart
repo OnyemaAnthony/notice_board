@@ -5,6 +5,7 @@ import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
 import 'package:notice_board/utilities.dart';
+import 'package:notice_board/widgets/notice_list.dart';
 
 class NoticeRequestScreen extends StatefulWidget {
   const NoticeRequestScreen({Key? key}) : super(key: key);
@@ -45,9 +46,7 @@ class _NoticeRequestScreenState extends State<NoticeRequestScreen> {
      itemCount: notices.length,
      itemBuilder: (context,index){
        NoticeModel notice = notices[index];
-       return ListTile(
-         title: Text(notice.title!),
-       );
+       return NoticeList(notice: notice);
      },
    );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/blocs/authentication/authentication_bloc.dart';
 import 'package:notice_board/models/user_model.dart';
+import 'package:notice_board/widgets/user_list.dart';
 
 import '../utilities.dart';
 
@@ -34,9 +35,7 @@ class UserScreen extends StatelessWidget {
       itemCount: users.length,
       itemBuilder: (context,index){
         UserModel user = users[index];
-        return ListTile(
-          title: Text(user.firstName!),
-        );
+        return UserList(user: user);
       },
     );
   }
