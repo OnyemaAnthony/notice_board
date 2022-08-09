@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/widgets/storage.dart';
@@ -9,32 +10,40 @@ import 'package:timeago/timeago.dart' as timeago;
 class NoticeList extends StatelessWidget {
   final NoticeModel? notice;
 
-  const NoticeList({Key? key,this.notice}) : super(key: key);
+  NoticeList({Key? key, this.notice}) : super(key: key);
+  final DateFormat dateFormatter = DateFormat('yMMMEd');
 
-   @override
+  @override
   Widget build(BuildContext context) {
-    UserModel? user = Storage.user;
-  return  Container(
-    margin:const  EdgeInsets.only(top: 10),
-    child: Card(
-      child: Container(
-        padding: const EdgeInsets.only(bottom: 25,top: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            Text('Title:${notice!.title}')
-
-          ],
+    return Container(
+      padding: const EdgeInsets.all(5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Divider(thickness: 0.8,),
+          ListTile(
+            trailing: notice!.deadline!.isAfter(DateTime.now())
+                ? Text(dateFormatter.format(notice!.deadline!))
+                : Text(
+                    dateFormatter.format(notice!.deadline!),
+                    style: const TextStyle(color: Colors.red,decoration: TextDecoration.lineThrough),
+                  ),
+            subtitle: Text(timeago.format(notice!.createdAt!).toString()),
+            title: Text(notice!.title!),
+            leading: CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
+                notice!.createdByPicture!,
+              ),
+            ),
+          ),
+        ],
         // child: ListTile(
         //   title: Text('${user!.firstName}, ${user.lastName}'),
         //     leading:  CircleAvatar(
         //       radius: 30,
         //       backgroundImage: CachedNetworkImageProvider(user.imageURL!),
         //     ),
-        ),
       ),
-    ),
-  );
+    );
   }
 }

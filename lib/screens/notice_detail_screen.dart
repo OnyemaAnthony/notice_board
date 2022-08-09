@@ -49,7 +49,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                   }
                   return Column(
                     children: [
-                      Text('the text is ${widget.notice!.title}')
+                      Text('the text is ${widget.notice!.description}')
                     ],
                   );
                 },

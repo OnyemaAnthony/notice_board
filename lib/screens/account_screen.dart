@@ -139,7 +139,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         decoration: BoxDecoration(
                            color: Theme.of(context).buttonTheme.colorScheme!.primary,
                         ),
-                        child: const Text('Admin Panel'),
+                        child:  const Text('Admin Panel',style: TextStyle(color: Colors.white),),
                       ),
                     ),
                   ),

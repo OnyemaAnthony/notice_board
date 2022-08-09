@@ -5,6 +5,8 @@ class NoticeModel {
   String? title;
   String? description;
   String? createdBy;
+  String? createdByPicture;
+  String? createdByFullName;
   bool? isVisible;
   DateTime? deadline;
   DateTime? createdAt;
@@ -16,6 +18,8 @@ class NoticeModel {
     this.description,
     this.isVisible,
     this.createdBy,
+    this.createdByFullName,
+    this.createdByPicture,
     this.deadline,
     this.createdAt,
     this.updatedAt,
@@ -27,6 +31,8 @@ class NoticeModel {
       'description': description,
       'createdBy': createdBy,
       'isVisible':isVisible,
+      'createdByFullName':createdByFullName,
+      'createdByPicture':createdByPicture,
       'deadline': FieldValue.serverTimestamp(),
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp()
@@ -39,7 +45,9 @@ class NoticeModel {
         description = notice.data()['description'],
         createdBy = notice.data()['createdBy'],
         isVisible = notice.data()['isVisible'],
-        deadline = notice.data()['deadline'].toDate(),
-        createdAt = notice.data()['createdAt'].toDate(),
-        updatedAt = notice.data()['updatedAt'].toDate();
+        createdByPicture = notice.data()['createdByPicture'],
+        createdByFullName = notice.data()['createdByFullName'],
+        deadline =  notice.data()['deadline'].toDate() ?? DateTime.now(),
+        createdAt = notice.data()['createdAt'].toDate() ?? DateTime.now(),
+        updatedAt = notice.data()['updatedAt'].toDate() ?? DateTime.now();
 }

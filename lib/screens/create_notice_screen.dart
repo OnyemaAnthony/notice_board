@@ -79,6 +79,8 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
                       child: const Text('Save notice'),
                       onPressed: () {
                         noticeBloc.add(CreateNoticeEvent(NoticeModel(
+                          createdByFullName: '${user.lastName} ${user.firstName}',
+                            createdByPicture: user.imageURL,
                             description: descriptionController.text,
                             createdAt: DateTime.now(),
                             createdBy: user.id,
