@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/blocs/authentication/authentication_bloc.dart';
 import 'package:notice_board/models/user_model.dart';
+import 'package:notice_board/screens/user_screen_detail.dart';
 import 'package:notice_board/widgets/user_list.dart';
 
 import '../utilities.dart';
@@ -21,7 +22,7 @@ class UserScreen extends StatelessWidget {
                 if(state is AuthenticationLoadingState){
                   return Utilities.showCircularLoader('Fetching Notices Requests...');
                 }else if(state is UserLoadedState){
-                  return buildUserList(state.users);
+                  return buildUserList(state.users,context);
                 }
                 return Container();
               },
@@ -30,12 +31,16 @@ class UserScreen extends StatelessWidget {
         }
     );
   }
-  Widget buildUserList(List<UserModel> users){
+  Widget buildUserList(List<UserModel> users,BuildContext context){
     return ListView.builder(
       itemCount: users.length,
       itemBuilder: (context,index){
         UserModel user = users[index];
-        return UserList(user: user);
+        return GestureDetector(
+          onTap: (){
+            Utilities.push(UserScreenDetail(user: user,), context);
+          },
+            child: UserList(user: user));
       },
     );
   }
