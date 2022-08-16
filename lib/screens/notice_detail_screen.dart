@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
@@ -17,45 +19,188 @@ class NoticeDetailScreen extends StatefulWidget {
 }
 
 class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
+  final DateFormat dateFormatter = DateFormat('yMMMEd');
+
   late NoticeBloc noticeBloc;
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     UserModel? user = Storage.user;
     return BlocProvider(
-      create: (BuildContext context) => NoticeBloc(repository: NoticeRepository()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.notice!.title!),
-          actions: [
-            user!.isPublisher! ||user.id ==widget.notice!.createdBy!? Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: GestureDetector(
-                onTap: () {
-                deleteNotice(context);
-                },
-                child: const Icon(Icons.delete),
-              ),
-            ):Container(),
-          ],
-        ),
-        body: Builder(
-            builder: (BuildContext context) {
-              noticeBloc = BlocProvider.of<NoticeBloc>(context);
-              return BlocBuilder<NoticeBloc, NoticeState>(
-                builder: (context, state) {
-                  if(state is NoticeLoadingState){
-                    return Utilities.showCircularLoader('Deleting notice...');
-                  }
-                  return Column(
-                    children: [
-                      Text('the text is ${widget.notice!.description}')
-                    ],
-                  );
-                },
-              );
-            }
-        ),
+      create: (BuildContext context) =>
+          NoticeBloc(repository: NoticeRepository()),
+      child: Builder(
+        builder: (BuildContext context){
+          noticeBloc = BlocProvider.of<NoticeBloc>(context);
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  title: const Text('Your notice detail'),
+                  actions: [
+                    user!.isPublisher! || user.id == widget.notice!.createdBy!
+                        ? Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: GestureDetector(
+                        onTap: () {
+                          deleteNotice(context);
+                        },
+                        child: const Icon(Icons.delete),
+                      ),
+                    )
+                        : Container(),
+                  ],
+                  pinned: true,
+                  stretch: true,
+                  expandedHeight: 250,
+                  flexibleSpace: FlexibleSpaceBar(
+                    centerTitle: true,
+                    background: CachedNetworkImage(
+                        placeholder: (context, url) => Container(
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2.0,
+                            valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.blueGrey),
+                          ),
+                          width: 85,
+                          height: 85,
+                          padding: const EdgeInsets.all(15),
+                        ),
+                        imageUrl: widget.notice!.createdByPicture!,
+                        fit: BoxFit.cover),
+                  ),
+                ),
+                BlocBuilder<NoticeBloc, NoticeState>(
+                  builder: (context, state) {
+                    if (state is NoticeLoadingState) {
+                      return Utilities.showCircularLoader('Deleting notice...');
+                    }
+                    return const SliverToBoxAdapter();
+                  },
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 20,left: 5,right: 5),
+                    child: Column(
+                      crossAxisAlignment:  CrossAxisAlignment.start,
+                      children:  [
+                        const Text('INFO',style: TextStyle(fontWeight: FontWeight.bold),),
+                       const SizedBox(height: 10,),
+                        Container(
+                          width: size.width,
+                          height: size.height *0.09,
+                          decoration: const BoxDecoration(
+                            color: Colors.black12
+                          ),
+                          child: Container(
+                            padding:const EdgeInsets.all(5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                               const Text('Title',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                const SizedBox(height: 10,),
+                                Text(widget.notice!.title!,style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15
+                                ),),
+
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        Container(width: size.width,
+                        height: size.height*0.3,
+                          color: Colors.black12,
+                          child: Container(
+                            padding:const EdgeInsets.all(5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Description',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                const SizedBox(height: 10,),
+                                Text(widget.notice!.description!,style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15
+                                ),),
+                              ],
+                            ),
+                          )
+
+                          ,),
+                        const SizedBox(height: 10,),
+                        Container(
+                          width: size.width,
+                          height: size.height *0.09,
+                          decoration: const BoxDecoration(
+                              color: Colors.black12
+                          ),
+                          child: Container(
+                            padding:const EdgeInsets.all(5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Posted by',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                const SizedBox(height: 10,),
+                                Text(widget.notice!.createdByFullName!,style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15
+                                ),),
+
+                              ],
+                            ),
+
+                          ),
+                        ),
+                       const SizedBox(height: 10,),
+                        Container(
+                          width: size.width,
+                          height: size.height *0.1,
+                          decoration: const BoxDecoration(
+                              color: Colors.black12
+                          ),
+                          child: Container(
+                            padding:const EdgeInsets.all(5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Text('Posted At',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                    const SizedBox(width: 10,),
+                                    Text(dateFormatter.format(widget.notice!.createdAt!),style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15
+                                    ),),
+                                  ],
+                                ),
+                                const SizedBox(height: 10,),
+
+                                Row(
+                                  children: [
+                                    const Text('DeadLine At',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                    const SizedBox(width: 10,),
+                                    Text(dateFormatter.format(widget.notice!.deadline!),style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 15
+                                    ),),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 200,)
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+
       ),
     );
   }
@@ -78,13 +223,13 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
 
     AlertDialog alert = AlertDialog(
       title: const Text('Delete Notice'),
-      content:
-      Text('Are you sure you want to ${widget.notice!.title}?'),
+      content: Text('Are you sure you want to ${widget.notice!.title}?'),
       actions: [
         cancelButton,
         continueButton,
       ],
     );
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
