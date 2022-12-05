@@ -13,7 +13,18 @@ class NoticeRepository {
       return throw Exception(e.toString());
     }
   }
-
+  Future<void> approveNotice(
+      String noticeId, Map<String, dynamic> notice) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('notices')
+          .doc(noticeId)
+          .update(notice);
+      Utilities.showToast("Notice approved");
+    } catch (e) {
+      print(e.toString());
+    }
+  }
   Stream<QuerySnapshot> fetchPublishersNotice(String publishersId) {
     try {
       return FirebaseFirestore.instance

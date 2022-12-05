@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
+import 'package:notice_board/screens/notice_request_detail.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/notice_list.dart';
 
@@ -46,7 +47,12 @@ class _NoticeRequestScreenState extends State<NoticeRequestScreen> {
      itemCount: notices.length,
      itemBuilder: (context,index){
        NoticeModel notice = notices[index];
-       return NoticeList(notice: notice);
+       return GestureDetector(
+         onTap: (){
+           Utilities.push(NoticeRequestDetail(notice: notice,), context);
+
+         },
+           child: NoticeList(notice: notice));
      },
    );
   }

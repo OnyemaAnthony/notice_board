@@ -1,10 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notice_board/models/notice_model.dart';
-import 'package:notice_board/models/user_model.dart';
-import 'package:notice_board/widgets/storage.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class NoticeList extends StatelessWidget {

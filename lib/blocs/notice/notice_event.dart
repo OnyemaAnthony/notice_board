@@ -35,4 +35,11 @@ class FetchPublishersNoticeEvent extends NoticeEvent{
 
   const FetchPublishersNoticeEvent(this.publishersId);
 }
+class ApproveNoticeEvent extends NoticeEvent{
+  final Map<String,dynamic> noticeMap;
+  final String noticeId;
+
+  const ApproveNoticeEvent(this.noticeMap,this.noticeId);
+
+}
 

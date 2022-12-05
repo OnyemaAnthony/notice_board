@@ -20,6 +20,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     on<DeleteNoticeEvent>(_mapDeleteNoticeEventToState);
     on<FetchPublishersNoticeEvent>(_mapFetchPublishersNoticeEventToState);
     on< FetchNoticeRequestEvent>(_mapFetchNoticeRequestEventToState);
+    on< ApproveNoticeEvent>(_mapApproveNoticeEventToState);
 
   }
 
@@ -90,5 +91,16 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     } catch (e) {
       emit(NoticeErrorSate(e.toString()));
     }
+  }
+
+  FutureOr<void> _mapApproveNoticeEventToState(ApproveNoticeEvent event, Emitter<NoticeState> emit) async{
+    emit(NoticeLoadingState());
+    try {
+      repository!.approveNotice(event.noticeId, event.noticeMap);
+      emit(NoticeAddedState());
+    } catch (e) {
+      emit(NoticeErrorSate(e.toString()));
+    }
+
   }
 }
