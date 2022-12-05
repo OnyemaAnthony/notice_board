@@ -15,7 +15,7 @@ class UserScreenDetail extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: const Text('Your notice detail'),
+            title: const Text('Your  information'),
             pinned: true,
             stretch: true,
             expandedHeight: 250,
@@ -134,47 +134,50 @@ class UserScreenDetail extends StatelessWidget {
                     ),
                     child: Container(
                       padding:const EdgeInsets.all(5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                      child: SingleChildScrollView(
+                        child: Column(
+                          
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
 
-                          Row(
-                            children: [
-                              const Text('Email',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                              const SizedBox(width: 5,),
-                              Text(user!.email!,style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15
-                              ),),
-                            ],
-                          ),
-                         const SizedBox(height: 5,),
-                          Row(
-                            children: [
-                              const Text('Phone number',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                              const SizedBox(width: 5,),
-                              Text(user!.phoneNumber!,style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15
-                              ),),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Text('Joned On',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                              const SizedBox(width: 10,),
-                              Text(dateFormatter.format(user!.createdAt!),style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15
-                              ),),
-                            ],
-                          ),
-                          const SizedBox(height: 5,),
-                        ],
+                            Row(
+                              children: [
+                                const Text('Email',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                const SizedBox(width: 5,),
+                                Text(user!.email!,style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15
+                                ),),
+                              ],
+                            ),
+                           const SizedBox(height: 5,),
+                            Row(
+                              children: [
+                                const Text('Phone number',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                const SizedBox(width: 5,),
+                                Text(user!.phoneNumber!,style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15
+                                ),),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Text('Joined On',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                const SizedBox(width: 10,),
+                                Text(dateFormatter.format(user!.createdAt!),style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15
+                                ),),
+                              ],
+                            ),
+                            const SizedBox(height: 5,),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 200,)
+                 const SizedBox(height: 200,)
                 ],
               ),
             ),

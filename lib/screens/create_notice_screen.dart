@@ -5,6 +5,7 @@ import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
 import 'package:intl/intl.dart';
 import 'package:notice_board/utilities.dart';
+import 'package:notice_board/widgets/storage.dart';
 
 import '../blocs/authentication/authentication_bloc.dart';
 import '../models/user_model.dart';
@@ -25,9 +26,7 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    UserModel user = (BlocProvider.of<AuthenticationBloc>(context)
-        .state
-        .props[0] as UserModel);
+    UserModel? user = Storage.user;
     return BlocProvider(
       create: (context) => NoticeBloc(repository: NoticeRepository()),
       child: Scaffold(
@@ -79,7 +78,7 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
                       child: const Text('Save notice'),
                       onPressed: () {
                         noticeBloc.add(CreateNoticeEvent(NoticeModel(
-                          createdByFullName: '${user.lastName} ${user.firstName}',
+                          createdByFullName: '${user!.lastName} ${user.firstName}',
                             createdByPicture: user.imageURL,
                             description: descriptionController.text,
                             createdAt: DateTime.now(),

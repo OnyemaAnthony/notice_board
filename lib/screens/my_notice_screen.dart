@@ -114,7 +114,7 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
 
 
   void showAlert(BuildContext context) {
-    Widget continueButton = FlatButton(
+    Widget continueButton = TextButton(
       child: const Text('Yes'),
       onPressed: () {
         Navigator.pop(context);
@@ -138,13 +138,13 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
   }
 
   void becomePublisher(BuildContext context) {
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = TextButton(
       child: const Text('Ok'),
       onPressed: () {
         Navigator.pop(context);
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = TextButton(
       child: const Text('Yes'),
       onPressed: () {
         Map<String,dynamic>user = {

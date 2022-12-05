@@ -206,13 +206,13 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
   }
 
   void deleteNotice(BuildContext context) {
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = TextButton(
       child: const Text('Cancel'),
       onPressed: () {
         Navigator.pop(context);
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = TextButton(
       child: const Text('Ok'),
       onPressed: () {
         noticeBloc.add(DeleteNoticeEvent(widget.notice!.id!));

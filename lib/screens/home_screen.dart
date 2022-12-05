@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   Widget buildNoticeList(List<DocumentSnapshot> noticeDocs){
-    List<NoticeModel> notices = noticeDocs.map((notice) =>NoticeModel.fromFireStore(notice) ).toList();
+    List<NoticeModel> notices = noticeDocs.map((notice) =>NoticeModel.fromFireStore(notice)).toList();
    // return GroupedListView<dynamic, String>(
    //    elements: notices,
    //    groupBy: (element) => element.createdAt.toString(),

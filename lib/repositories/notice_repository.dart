@@ -7,7 +7,7 @@ class NoticeRepository {
     try {
       return FirebaseFirestore.instance
           .collection('notices')
-          .where('isVisible', isEqualTo: false)
+          .where('isVisible', isEqualTo: true)
           .snapshots();
     } catch (e) {
       return throw Exception(e.toString());
@@ -27,7 +27,7 @@ class NoticeRepository {
   }
   Stream<QuerySnapshot>fetchNoticeRequest(){
     try{
-      return FirebaseFirestore.instance.collection('Notices').where('isVisible',isEqualTo: false).snapshots();
+      return FirebaseFirestore.instance.collection('notices').where('isVisible',isEqualTo: false).snapshots();
     }catch(e){
       return throw Exception(e.toString());
     }
