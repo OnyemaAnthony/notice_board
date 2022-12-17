@@ -8,6 +8,7 @@ class NoticeRepository {
       return FirebaseFirestore.instance
           .collection('notices')
           .where('isVisible', isEqualTo: true)
+          .orderBy('createdAt',descending: true)
           .snapshots();
     } catch (e) {
       return throw Exception(e.toString());
