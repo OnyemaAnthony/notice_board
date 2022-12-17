@@ -42,7 +42,7 @@ class _PublishersRequestScreenState extends State<PublishersRequestScreen> {
         UserModel user = users[index];
         return GestureDetector(
           onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const PublishersRequestDetail()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (_)=> PublishersRequestDetail(user: user,)));
           },
             child: UserList(user: user));
       },
