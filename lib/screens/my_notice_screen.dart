@@ -63,9 +63,11 @@ class _MyNoticeScreenState extends State<MyNoticeScreen> {
           child: Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              width: MediaQuery.of(context).size.width *0.2,
-              padding: const EdgeInsets.all(10),
-              //alignment: Alignment.center,
+              height: 40,
+             // width: MediaQuery.of(context).size.width *0.2,
+
+              margin: const EdgeInsets.all(10),
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
                 borderRadius: const BorderRadius.all(Radius.circular(5)),

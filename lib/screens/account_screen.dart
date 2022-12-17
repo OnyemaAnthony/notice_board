@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notice_board/models/user_model.dart';
+import 'package:notice_board/repositories/user_repository.dart';
+import 'package:notice_board/screens/login_screen.dart';
 import 'package:notice_board/screens/tab_screen.dart';
+import 'package:notice_board/screens/welcome_screen.dart';
 import 'package:notice_board/theme.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/storage.dart';
@@ -98,7 +101,12 @@ class _AccountScreenState extends State<AccountScreen> {
                 UserTile(icon: Icons.email,color: Colors.red,title: 'Email',tIcon: Icons.arrow_forward_ios,subTitle: user.email,),
                 UserTile(icon: Icons.call,color: Colors.green,title: 'Phone Number',tIcon: Icons.arrow_forward_ios,subTitle: user.phoneNumber,),
                 UserTile(icon: Icons.local_shipping,color: Colors.indigo,title: 'About',tIcon: Icons.arrow_forward_ios,subTitle: user.description,),
+                UserTile(icon: Icons.verified_user_sharp,color: Colors.grey,title: 'Sign out',tIcon: Icons.arrow_forward_ios,subTitle: '',onTap: (){
+                  UserRepository().signOut();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginScreen()));
+                },),
                 UserTile(icon: Icons.watch_later,color: Colors.red,title: 'joined Date',tIcon: Icons.arrow_forward_ios,subTitle: dateFormatter.format(user.createdAt!),),
+
                 const Text(
                   'User Settings',
                   style: TextStyle(

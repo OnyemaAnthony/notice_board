@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notice_board/screens/publishers_request_detail.dart';
 import 'package:notice_board/widgets/user_list.dart';
 
 import '../blocs/authentication/authentication_bloc.dart';
@@ -39,7 +40,11 @@ class _PublishersRequestScreenState extends State<PublishersRequestScreen> {
       itemCount: users.length,
       itemBuilder: (context,index){
         UserModel user = users[index];
-        return UserList(user: user);
+        return GestureDetector(
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const PublishersRequestDetail()));
+          },
+            child: UserList(user: user));
       },
     );
   }

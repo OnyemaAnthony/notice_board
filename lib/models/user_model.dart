@@ -12,6 +12,8 @@ class UserModel {
   bool? isAdmin;
   bool? isRequestedPublisher;
   bool? isPublisher;
+  String? gender;
+  DateTime? dob;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -28,6 +30,8 @@ class UserModel {
       this.isPublisher,
       this.isRequestedPublisher,
       this.createdAt,
+        this.gender,
+        this.dob,
       this.updatedAt});
 
   Map<String, dynamic> toMap() {
@@ -41,6 +45,8 @@ class UserModel {
       'isAdmin': isAdmin,
       'isRequestedPublisher': isRequestedPublisher,
       'isPublisher': isPublisher,
+      'dob': dob,
+      'gender':gender,
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp(),
     };
@@ -57,6 +63,8 @@ class UserModel {
         isAdmin = user.data()!['isAdmin'],
         isRequestedPublisher = user.data()!['isRequestedPublisher'],
         isPublisher = user.data()!['isPublisher'],
+        dob = user.data()!['dob'].toDate(),
+         gender = user.data()!['gender'],
         createdAt = user.data()!['createdAt']?.toDate(),
         updatedAt = user.data()!['updatedAt']?.toDate();
 }

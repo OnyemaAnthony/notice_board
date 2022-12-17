@@ -6,8 +6,6 @@ import 'package:notice_board/repositories/notice_repository.dart';
 import 'package:intl/intl.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/storage.dart';
-
-import '../blocs/authentication/authentication_bloc.dart';
 import '../models/user_model.dart';
 
 class CreateNoticeScreen extends StatefulWidget {

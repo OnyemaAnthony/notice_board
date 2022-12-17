@@ -33,7 +33,7 @@ class NoticeModel {
       'isVisible':isVisible,
       'createdByFullName':createdByFullName,
       'createdByPicture':createdByPicture,
-      'deadline': FieldValue.serverTimestamp(),
+      'deadline': deadline,
       'createdAt': FieldValue.serverTimestamp(),
       'updatedAt': FieldValue.serverTimestamp()
     };
@@ -47,11 +47,10 @@ class NoticeModel {
         isVisible = notice.data()['isVisible'],
         createdByPicture = notice.data()['createdByPicture'],
         createdByFullName = notice.data()['createdByFullName'],
-        deadline = DateTime.now(),
-        createdAt = DateTime.now(),
-        updatedAt = DateTime.now();
-
-        // deadline =  notice.data()['deadline'].toDate() ?? DateTime.now(),
-        // createdAt = notice.data()['createdAt'].toDate() ?? DateTime.now(),
-        // updatedAt = notice.data()['updatedAt'].toDate() ?? DateTime.now();
+        // deadline = DateTime.now(),
+        // createdAt = DateTime.now(),
+        // updatedAt = DateTime.now();
+        deadline =  notice.data()['deadline'].toDate() ?? DateTime.now(),
+        createdAt = notice.data()['createdAt'].toDate() ?? DateTime.now(),
+        updatedAt = notice.data()['updatedAt'].toDate() ?? DateTime.now();
 }

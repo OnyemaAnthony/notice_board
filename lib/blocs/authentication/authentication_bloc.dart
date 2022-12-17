@@ -70,6 +70,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
        await repository!.saveUser(event.user, userInfo.uid);
       emit(Authenticated(await repository!.getUser()));
     } catch (e) {
+      print('error is ${e.toString()}');
      emit(AuthenticationErrorState(e.toString()));
     }
   }

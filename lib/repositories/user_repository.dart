@@ -130,14 +130,20 @@ class UserRepository {
 
   Future<String> uploadProfilePicture(
       File file, String userId, String folderName) async {
-    String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    UploadTask uploadTask = FirebaseStorage.instance
-        .ref()
-        .child(folderName)
-        .child(userId)
-        .child(fileName)
-        .putFile(file);
-    TaskSnapshot snapshot = uploadTask.snapshot;
-    return await snapshot.ref.getDownloadURL();
+    try{
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref()
+          .child(folderName)
+          .child(userId)
+          .putFile(file);
+      TaskSnapshot snapshot = await uploadTask;
+      return await snapshot.ref.getDownloadURL();
+    }catch(e){
+      print('the error is ${e.toString()}');
+
+    }
+    return'';
+
   }
 }

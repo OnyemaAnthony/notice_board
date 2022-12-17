@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:notice_board/blocs/authentication/authentication_bloc.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/repositories/user_repository.dart';
@@ -48,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _entryField(String title, {bool isPassword = false}) {
+  Widget _entryField(String title,TextEditingController controller, {bool isPassword = false}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -62,7 +63,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 10,
           ),
           TextField(
-            //controller: emailController,
+            controller: controller,
               obscureText: isPassword,
               decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -104,7 +105,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
     return TextButton(
         onPressed: (){
-          authenticationBloc.add(SignUpEvent(UserModel(createdAt: DateTime.now(),description: 'hello',isRequestedPublisher:false,email: 'anthon@gmail.com',password:'this.tony',lastName: 'onyema',isPublisher: false,isAdmin: false), profilePicture!));
+          authenticationBloc.add(SignUpEvent(UserModel(createdAt:
+          DateTime.now(),description: bioController.text,
+
+              isRequestedPublisher:false,email:
+              emailController.text,password:
+              passwordController.text,lastName:
+              lastnameController.text,isPublisher:
+              false,isAdmin: false,firstName:
+              firstnameController.text,dob:selectedDate,phoneNumber:
+            phoneNumberController.text,gender:genderController.text ),
+              profilePicture!));
         },
         child: const Text('Register now'),
        // style: TextButton.styleFrom( ),
@@ -114,6 +125,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 ),
     );
   }
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController firstnameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
+  TextEditingController bioController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController dateOfBirthNumberController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
 
   Widget _loginAccountLabel() {
     return InkWell(
@@ -146,13 +165,60 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+  DateTime selectedDate = DateTime.now();
 
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime(2022, 1, 1),
+        firstDate: DateTime(1900, 1),
+        lastDate: DateTime(2100));
+
+    setState(() {
+      if (picked != null && picked != selectedDate) {
+        selectedDate = picked;
+        dateOfBirthNumberController.text =
+            DateFormat("EEE, MMM d, yyyy").format(selectedDate);
+      }
+    });
+  }
+
+  Container pickDate(String hint) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: Colors.black45)),
+      child: GestureDetector(
+        onTap: () => _selectDate(context),
+        child: AbsorbPointer(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                hintText: hint,
+                suffixIcon: const Icon(Icons.arrow_drop_down),
+              ),
+              controller: dateOfBirthNumberController,
+              keyboardType: TextInputType.datetime,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Username"),
-        _entryField("Email "),
-        _entryField("Password", isPassword: true),
+        _entryField("FirstName",firstnameController),
+        _entryField("Lastname",lastnameController),
+        _entryField("Email ",emailController),
+        _entryField("Description",bioController),
+        _entryField("PhoneNumber",phoneNumberController),
+       // _entryField("Date of Birth",dateOfBirthNumberController),
+        pickDate('Date of Birth'),
+        _entryField("Gender",genderController),
+        _entryField("Password",passwordController, isPassword: true),
       ],
     );
   }

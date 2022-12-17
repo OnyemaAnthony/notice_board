@@ -89,7 +89,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                        const SizedBox(height: 10,),
                         Container(
                           width: size.width,
-                          height: size.height *0.09,
+                          height: size.height *0.2,
                           decoration: const BoxDecoration(
                             color: Colors.black12
                           ),
@@ -111,7 +111,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                         ),
                         const SizedBox(height: 10,),
                         Container(width: size.width,
-                        height: size.height*0.3,
+                        height: size.height*0.6,
                           color: Colors.black12,
                           child: Container(
                             padding:const EdgeInsets.all(5),
