@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
@@ -21,6 +23,8 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
   TextEditingController deadlineController = TextEditingController();
   DateTime selectedDate = DateTime.now();
   late NoticeBloc noticeBloc;
+  File? profilePicture;
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +54,35 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
                   children: [
                     const SizedBox(
                       height: 10,
+                    ),
+                    profilePicture != null?
+                    //Container(child: Text('the file is picked'),color: Colors.red,):
+                    SizedBox(
+                      width: double.infinity,
+                      height: 200,
+                      child: Image.file(
+                        profilePicture!,
+                        width: 90.0,
+                        height: 90.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ):
+                    Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.grey,width: 1.5)
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: Colors.teal.withOpacity(0.5),
+                        ),
+                        onPressed: pickImage,
+                        padding: const EdgeInsets.all(30.0),
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.grey,
+                        iconSize: 30.0,
+                      ),
                     ),
                     TextFormField(
                       controller: titleController,
@@ -84,7 +117,8 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
                             deadline: selectedDate,
                             isVisible: false,
                             title: titleController.text,
-                            updatedAt: DateTime.now())));
+                            updatedAt: DateTime.now(),
+                        ),profilePicture!));
                       },
                       style: TextButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -140,5 +174,18 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
         ),
       ),
     );
+  }
+  Future pickImage() async {
+
+    final ImagePicker _picker = ImagePicker();
+
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        profilePicture = File(image.path);
+
+      });
+    }
   }
 }

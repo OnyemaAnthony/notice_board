@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:notice_board/models/notice_model.dart';
+import 'package:notice_board/widgets/storage.dart';
 
 import '../../repositories/notice_repository.dart';
 
@@ -49,6 +51,8 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
   FutureOr<void> _mapCreateNoticeEventToState(CreateNoticeEvent event, Emitter<NoticeState> emit) async{
     emit(NoticeLoadingState());
     try {
+      String imageURL = await repository!.uploadNoticePicture(event.file, Storage.user!.id!, 'Post');
+      event.notice.imageURL = imageURL;
       await repository!.saveNotice(event.notice);
       emit(NoticeAddedState());
     } catch (e) {

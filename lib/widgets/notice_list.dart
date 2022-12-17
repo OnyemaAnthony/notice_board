@@ -29,7 +29,7 @@ class NoticeList extends StatelessWidget {
             title: Text(notice!.title!),
             leading: CircleAvatar(
               backgroundImage: CachedNetworkImageProvider(
-                notice!.createdByPicture!,
+                notice!.imageURL!,
               ),
             ),
           ),

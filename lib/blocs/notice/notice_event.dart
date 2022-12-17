@@ -8,8 +8,9 @@ abstract class NoticeEvent extends Equatable {
 
 class CreateNoticeEvent extends NoticeEvent{
   final NoticeModel notice;
+  final File file;
 
-  const CreateNoticeEvent(this.notice);
+  const CreateNoticeEvent(this.notice,this.file);
 }
 
 class NoticeUpdated extends NoticeEvent{

@@ -7,6 +7,7 @@ class NoticeModel {
   String? createdBy;
   String? createdByPicture;
   String? createdByFullName;
+  String? imageURL;
   bool? isVisible;
   DateTime? deadline;
   DateTime? createdAt;
@@ -47,9 +48,7 @@ class NoticeModel {
         isVisible = notice.data()['isVisible'],
         createdByPicture = notice.data()['createdByPicture'],
         createdByFullName = notice.data()['createdByFullName'],
-        // deadline = DateTime.now(),
-        // createdAt = DateTime.now(),
-        // updatedAt = DateTime.now();
+        imageURL = notice.data()!['imageURL'],
         deadline =  notice.data()['deadline'].toDate() ?? DateTime.now(),
         createdAt = notice.data()['createdAt'].toDate() ?? DateTime.now(),
         updatedAt = notice.data()['updatedAt'].toDate() ?? DateTime.now();
