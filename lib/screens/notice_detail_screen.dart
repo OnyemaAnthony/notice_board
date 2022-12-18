@@ -67,7 +67,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                           height: 85,
                           padding: const EdgeInsets.all(15),
                         ),
-                        imageUrl: widget.notice!.createdByPicture!,
+                        imageUrl: widget.notice!.imageURL!,
                         fit: BoxFit.cover),
                   ),
                 ),
