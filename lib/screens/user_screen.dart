@@ -12,37 +12,44 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Builder(
-        builder: (BuildContext context) {
-          BlocProvider.of<AuthenticationBloc>(context).add(FetchAllUsersEvent());
-          return Scaffold(
-            body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-              builder: (context, state) {
-                if(state is AuthenticationLoadingState){
-                  return Utilities.showCircularLoader('Fetching Notices Requests...');
-                }else if(state is UserLoadedState){
-                  return buildUserList(state.users,context);
-                }
-                return Container();
-              },
-            ),
-          );
-        }
-    );
+    return Builder(builder: (BuildContext context) {
+      BlocProvider.of<AuthenticationBloc>(context).add(FetchAllUsersEvent());
+      return Scaffold(
+        body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state is AuthenticationLoadingState) {
+              return Utilities.showCircularLoader(
+                  'Fetching Notices Requests...');
+            } else if (state is UserLoadedState) {
+              return state.users.isEmpty
+                  ? const Center(
+                      child:
+                          Text('You don not have any active users in the app'),
+                    )
+                  : buildUserList(state.users, context);
+            }
+            return Container();
+          },
+        ),
+      );
+    });
   }
-  Widget buildUserList(List<UserModel> users,BuildContext context){
+
+  Widget buildUserList(List<UserModel> users, BuildContext context) {
     return ListView.builder(
       itemCount: users.length,
-      itemBuilder: (context,index){
+      itemBuilder: (context, index) {
         UserModel user = users[index];
         return GestureDetector(
-          onTap: (){
-            Utilities.push(UserScreenDetail(user: user,), context);
-          },
+            onTap: () {
+              Utilities.push(
+                  UserScreenDetail(
+                    user: user,
+                  ),
+                  context);
+            },
             child: UserList(user: user));
       },
     );
   }
-
 }

@@ -54,6 +54,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     emit(AuthenticationLoadingState());
     try {
       await repository!.updateUserToPublisher(event.userId, event.user);
+      print('upppppp');
       emit(UserUpdatedState());
     } catch (e) {
       emit(AuthenticationErrorState(e.toString()));

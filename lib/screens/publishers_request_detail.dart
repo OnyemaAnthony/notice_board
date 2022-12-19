@@ -242,13 +242,9 @@ class _PublishersRequestDetailState extends State<PublishersRequestDetail> {
     Widget continueButton = TextButton(
       child: const Text('Yes'),
       onPressed: () {
-        Map<String,dynamic>noticeMap = {
-          'isVisible':true,
-          'updatedAt':DateTime.now(),
-        };
         Map<String,dynamic> userMap ={'isPublisher':true};
 
-        authenticationBloc!.add(UpdateUserToPublisherEvent(Storage.user!.id!, userMap));
+        authenticationBloc!.add(UpdateUserToPublisherEvent(widget.user!.id!, userMap));
         Navigator.of(context).pop();
       },
     );

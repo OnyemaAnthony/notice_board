@@ -30,7 +30,11 @@ class _NoticeRequestScreenState extends State<NoticeRequestScreen> {
                   if(state is NoticeLoadingState){
                     return Utilities.showCircularLoader('Fetching Notices Requests...');
                   }else if(state is NoticeLoadedState){
-                    return buildNoticeList(state.noticeDocs);
+                    return state.noticeDocs.isEmpty? const Center(child: Text('You donnot have any pending notice at the moment',style: TextStyle(
+                        fontWeight:FontWeight.w600,
+                        fontSize: 20,
+                        color: Colors.black
+                    ),),):buildNoticeList(state.noticeDocs);
                   }
                   return Container();
                 },

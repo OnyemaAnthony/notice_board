@@ -60,6 +60,8 @@ class UserRepository {
           .collection('Users')
           .doc(userId)
           .update(user);
+      print('user ${user} and id ${userId}');
+      print('done');
     } catch (e) {
       print(e.toString());
     }
