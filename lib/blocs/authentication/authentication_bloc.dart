@@ -23,6 +23,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<FetchPublishersRequestEvent>(_mapFetchPublishersRequestEventToState);
     on<FetchAllUsersEvent>(_mapFetchAllUsersEventToState);
     on<AuthenticationUpdated>(_mapAuthenticationUpdatedToState);
+    on<ForgetPasswordEvent>(_mapForgetPasswordEventToState);
   }
 
   FutureOr<void> _mapAppStartedEventToState(AppStartedEvent event, Emitter<AuthenticationState> emit) async{
@@ -54,7 +55,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     emit(AuthenticationLoadingState());
     try {
       await repository!.updateUserToPublisher(event.userId, event.user);
-      print('upppppp');
       emit(UserUpdatedState());
     } catch (e) {
       emit(AuthenticationErrorState(e.toString()));
@@ -116,6 +116,16 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       emit(UserLoadedState(users));
     }catch(e){
       emit(UnAuthenticatedState());
+    }
+  }
+
+  FutureOr<void> _mapForgetPasswordEventToState(ForgetPasswordEvent event, Emitter<AuthenticationState> emit)async {
+    try{
+      repository!.forgetPassword(event.email);
+      emit(PasswordUpdatedState());
+
+    }catch(e){
+      emit(AuthenticationErrorState(e.toString()));
     }
   }
 }

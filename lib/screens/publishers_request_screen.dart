@@ -26,7 +26,7 @@ class _PublishersRequestScreenState extends State<PublishersRequestScreen> {
                 if(state is AuthenticationLoadingState){
                   return Utilities.showCircularLoader('Fetching Notices Requests...');
                 }else if(state is UserLoadedState){
-                  return state.users.isEmpty?const Center(child: Text('Sorry you don not have any pending publishers request ',style: TextStyle(
+                  return state.users.isEmpty?const Center(child: Text('Sorry you don\'t have any pending publishers request ',style: TextStyle(
                     fontWeight:FontWeight.w600,
                     fontSize: 20,
                     color: Colors.black

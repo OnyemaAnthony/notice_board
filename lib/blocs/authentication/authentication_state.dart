@@ -18,7 +18,9 @@ class Authenticated extends AuthenticationState{
   @override
   List<Object?> get props => [user];
 }
+class PasswordUpdatedState extends AuthenticationState{
 
+}
 class UserUpdatedState extends AuthenticationState{
 
 }

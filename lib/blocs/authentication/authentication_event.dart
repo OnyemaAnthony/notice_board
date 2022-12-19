@@ -42,3 +42,9 @@ class SignUpEvent extends AuthenticationEvent{
 class LogOutEvent extends AuthenticationEvent{
 
 }
+class ForgetPasswordEvent extends AuthenticationEvent{
+  final String email;
+
+  const ForgetPasswordEvent(this.email);
+
+}

@@ -60,8 +60,6 @@ class UserRepository {
           .collection('Users')
           .doc(userId)
           .update(user);
-      print('user ${user} and id ${userId}');
-      print('done');
     } catch (e) {
       print(e.toString());
     }
@@ -147,5 +145,14 @@ class UserRepository {
     }
     return'';
 
+  }
+  Future<void>forgetPassword(String email)async{
+    try{
+      print('started');
+      await firebaseAuth!.sendPasswordResetEmail(email: email);
+      Utilities.showToast("Please check your email we sent a reset password link for you to reset you account");
+    }catch(e){
+      print(e.toString());
+    }
   }
 }

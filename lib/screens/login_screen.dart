@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/blocs/authentication/authentication_bloc.dart';
 import 'package:notice_board/repositories/user_repository.dart';
+import 'package:notice_board/screens/forget_password_screen.dart';
 import 'package:notice_board/screens/navigation_screen.dart';
 import 'package:notice_board/screens/sign_up_screen.dart';
 import 'package:notice_board/utilities.dart';
@@ -210,9 +211,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             alignment: Alignment.centerRight,
-                            child: const Text('Forgot Password ?',
-                                style: TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w500)),
+                            child: GestureDetector(
+                              onTap: (){
+                                Utilities.push(ForgetPasswordScreen(), context);
+                              },
+                              child: const Text('Forgot Password ?',
+                                  style: TextStyle(
+                                      fontSize: 14, fontWeight: FontWeight.w500)),
+                            ),
                           ),
                           _divider(),
                           SizedBox(height: height * .055),
