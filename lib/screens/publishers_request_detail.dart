@@ -236,7 +236,11 @@ class _PublishersRequestDetailState extends State<PublishersRequestDetail> {
     Widget cancelButton = TextButton(
       child: const Text('Ok'),
       onPressed: () {
-        Navigator.pop(context);
+        Map<String,dynamic> userMap ={'isRequestedPublisher':false};
+
+        authenticationBloc!.add(RejectPublishersRequest(widget.user!.id!, userMap));
+
+        Navigator.of(context).pop();
       },
     );
     Widget continueButton = TextButton(

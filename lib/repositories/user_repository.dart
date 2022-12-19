@@ -64,6 +64,17 @@ class UserRepository {
       print(e.toString());
     }
   }
+  Future<void> rejectPublishersRequest(
+      String userId, Map<String, dynamic> user) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .update(user);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   Future<void> saveUser(UserModel user, String userUID) async {
     try {

@@ -20,6 +20,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     on<SignUpEvent>(_mapSignUpEventToState);
     on<LogOutEvent>(_mapLogOutEventToState);
     on<UpdateUserToPublisherEvent>(_mapUpdateUserToPublisherEventToState);
+    on<RejectPublishersRequest>(_mapRejectPublishersRequestEventToState);
     on<FetchPublishersRequestEvent>(_mapFetchPublishersRequestEventToState);
     on<FetchAllUsersEvent>(_mapFetchAllUsersEventToState);
     on<AuthenticationUpdated>(_mapAuthenticationUpdatedToState);
@@ -125,6 +126,16 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       emit(PasswordUpdatedState());
 
     }catch(e){
+      emit(AuthenticationErrorState(e.toString()));
+    }
+  }
+
+  FutureOr<void> _mapRejectPublishersRequestEventToState(RejectPublishersRequest event, Emitter<AuthenticationState> emit) async{
+    emit(AuthenticationLoadingState());
+    try {
+      await repository!.rejectPublishersRequest(event.userId, event.user);
+      emit(UserUpdatedState());
+    } catch (e) {
       emit(AuthenticationErrorState(e.toString()));
     }
   }

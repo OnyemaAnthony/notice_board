@@ -22,6 +22,12 @@ class UpdateUserToPublisherEvent extends AuthenticationEvent{
 
   const UpdateUserToPublisherEvent(this.userId, this.user);
 }
+class RejectPublishersRequest extends AuthenticationEvent{
+  final String userId;
+  final Map<String, dynamic>user;
+
+  const RejectPublishersRequest(this.userId, this.user);
+}
 class AuthenticationUpdated extends AuthenticationEvent{
   final List<DocumentSnapshot> noticeDocs;
 
