@@ -89,7 +89,6 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                        const SizedBox(height: 10,),
                         Container(
                           width: size.width,
-                          height: size.height *0.2,
                           decoration: const BoxDecoration(
                             color: Colors.black12
                           ),
@@ -99,7 +98,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                const Text('Title',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                                const SizedBox(height: 10,),
+                                //const SizedBox(height: 10,),
                                 Text(widget.notice!.title!,style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 15
@@ -111,7 +110,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                         ),
                         const SizedBox(height: 10,),
                         Container(width: size.width,
-                        height: size.height*0.6,
+                        //height: size.height*0.7,
                           color: Colors.black12,
                           child: Container(
                             padding:const EdgeInsets.all(5),
@@ -129,7 +128,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                           )
 
                           ,),
-                        const SizedBox(height: 10,),
+                       // const SizedBox(height: 10,),
                         Container(
                           width: size.width,
                           height: size.height *0.09,

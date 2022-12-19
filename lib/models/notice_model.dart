@@ -36,6 +36,7 @@ class NoticeModel {
       'createdByPicture':createdByPicture,
       'deadline': deadline,
       'createdAt': FieldValue.serverTimestamp(),
+      'imageURL':imageURL,
       'updatedAt': FieldValue.serverTimestamp()
     };
   }
