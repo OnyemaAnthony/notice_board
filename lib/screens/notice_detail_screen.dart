@@ -23,6 +23,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
 
   late NoticeBloc noticeBloc;
 
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
