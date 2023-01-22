@@ -191,7 +191,7 @@ class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 200,)
+                       const  SizedBox(height: 200,)
                       ],
                     ),
                   ),
