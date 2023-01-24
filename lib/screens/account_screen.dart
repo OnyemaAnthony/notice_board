@@ -72,22 +72,9 @@ class _AccountScreenState extends State<AccountScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: ListView(primary: false, shrinkWrap: true, children: [
-                // const Text(
-                //   'User Bag',
-                //   style: TextStyle(
-                //       fontSize: 23,
-                //       fontWeight: FontWeight.bold,
-                //      ),
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-//                const UserTile(icon: Icons.favorite,color: Colors.deepPurpleAccent,title: 'Cart',tIcon: Icons.arrow_forward_ios),
                 const SizedBox(
                   height: 15,
                 ),
-
-
                 const Text(
                   'User Information',
                   style: TextStyle(

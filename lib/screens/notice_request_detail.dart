@@ -198,7 +198,6 @@ class _NoticeRequestDetailState extends State<NoticeRequestDetail> {
                                   }
                                   return const Text("Publish");
 
-
                                 },
 
                                 )),
