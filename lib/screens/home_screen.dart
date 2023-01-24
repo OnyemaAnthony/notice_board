@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grouped_list/grouped_list.dart';
 import 'package:notice_board/blocs/notice/notice_bloc.dart';
 import 'package:notice_board/models/notice_model.dart';
 import 'package:notice_board/repositories/notice_repository.dart';
@@ -57,16 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   Widget buildNoticeList(List<DocumentSnapshot> noticeDocs){
     List<NoticeModel> notices = noticeDocs.map((notice) =>NoticeModel.fromFireStore(notice)).toList();
-   // return GroupedListView<dynamic, String>(
-   //    elements: notices,
-   //    groupBy: (element) => element.createdAt.toString(),
-   //    groupSeparatorBuilder: (String groupByValue) => Text(groupByValue),
-   //    itemBuilder: (context, dynamic element) => Text(element.title),
-   //    itemComparator: (item1, item2) => item1.createdAt.compareTo(item2.createdAt), // optional
-   //    useStickyGroupSeparators: true, // optional
-   //    floatingHeader: true, // optional
-   //    order: GroupedListOrder.ASC, // optional
-   //  );
     return ListView.builder(
       itemCount: notices.length,
       itemBuilder: (context,index){
