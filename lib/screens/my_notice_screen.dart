@@ -7,7 +7,6 @@ import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/storage.dart';
 import '../blocs/authentication/authentication_bloc.dart';
 import '../models/notice_model.dart';
-import '../models/user_model.dart';
 import '../widgets/notice_list.dart';
 import 'notice_detail_screen.dart';
 

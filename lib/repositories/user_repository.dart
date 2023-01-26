@@ -142,7 +142,6 @@ class UserRepository {
   Future<String> uploadProfilePicture(
       File file, String userId, String folderName) async {
     try{
-      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
       UploadTask uploadTask = FirebaseStorage.instance
           .ref()
           .child(folderName)

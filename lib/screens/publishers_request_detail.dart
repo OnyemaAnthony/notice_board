@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:notice_board/blocs/authentication/authentication_bloc.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/repositories/user_repository.dart';
-import 'package:notice_board/widgets/storage.dart';
 
 class PublishersRequestDetail extends StatefulWidget {
   UserModel? user;

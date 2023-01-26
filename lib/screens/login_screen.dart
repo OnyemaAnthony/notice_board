@@ -27,11 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () {
         Navigator.pop(context);
       },
-      child: Row(
-        children: <Widget>[
 
-        ],
-      ),
     );
   }
 
