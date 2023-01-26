@@ -6,8 +6,6 @@ import 'package:equatable/equatable.dart';
 import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/repositories/user_repository.dart';
 
-import '../notice/notice_bloc.dart';
-
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
@@ -72,7 +70,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
        await repository!.saveUser(event.user, userInfo.uid);
       emit(Authenticated(await repository!.getUser()));
     } catch (e) {
-      print('error is ${e.toString()}');
      emit(AuthenticationErrorState(e.toString()));
     }
   }

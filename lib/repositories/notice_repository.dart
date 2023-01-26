@@ -26,7 +26,6 @@ class NoticeRepository {
           .update(notice);
       Utilities.showToast("Notice approved");
     } catch (e) {
-      print(e.toString());
     }
   }
   Stream<QuerySnapshot> fetchPublishersNotice(String publishersId) {
@@ -75,7 +74,6 @@ class NoticeRepository {
   Future<String> uploadNoticePicture(
       File file, String userId, String folderName) async {
     try{
-      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
       UploadTask uploadTask = FirebaseStorage.instance
           .ref()
           .child(folderName)
