@@ -34,12 +34,6 @@ class NoticeList extends StatelessWidget {
             ),
           ),
         ],
-        // child: ListTile(
-        //   title: Text('${user!.firstName}, ${user.lastName}'),
-        //     leading:  CircleAvatar(
-        //       radius: 30,
-        //       backgroundImage: CachedNetworkImageProvider(user.imageURL!),
-        //     ),
       ),
     );
   }
