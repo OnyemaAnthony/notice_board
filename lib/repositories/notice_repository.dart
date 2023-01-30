@@ -66,8 +66,8 @@ class NoticeRepository {
           .doc(noticeId)
           .delete();
       Utilities.showToast('Notice Deleted');
+    // ignore: empty_catches
     } catch (e) {
-      print(e.toString());
     }
   }
 

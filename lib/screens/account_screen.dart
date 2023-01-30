@@ -90,7 +90,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 UserTile(icon: Icons.local_shipping,color: Colors.indigo,title: 'About',tIcon: Icons.arrow_forward_ios,subTitle: user.description,),
                 UserTile(icon: Icons.verified_user_sharp,color: Colors.grey,title: 'Sign out',tIcon: Icons.arrow_forward_ios,subTitle: '',onTap: (){
                   UserRepository().signOut();
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>LoginScreen()));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const LoginScreen()));
                 },),
                 UserTile(icon: Icons.watch_later,color: Colors.red,title: 'joined Date',tIcon: Icons.arrow_forward_ios,subTitle: dateFormatter.format(user.createdAt!),),
 
