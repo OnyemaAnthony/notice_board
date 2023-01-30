@@ -26,7 +26,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         Navigator.pop(context);
       },
       child: Row(
-        children: <Widget>[
+        children: const <Widget>[
 
         ],
       ),
