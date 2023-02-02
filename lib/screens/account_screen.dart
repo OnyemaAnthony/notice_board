@@ -5,7 +5,6 @@ import 'package:notice_board/models/user_model.dart';
 import 'package:notice_board/repositories/user_repository.dart';
 import 'package:notice_board/screens/login_screen.dart';
 import 'package:notice_board/screens/tab_screen.dart';
-import 'package:notice_board/screens/welcome_screen.dart';
 import 'package:notice_board/theme.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/storage.dart';
