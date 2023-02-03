@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   Platform.isAndroid? await Firebase.initializeApp():await Firebase.initializeApp(
-    // Replace with actual values
     options: const FirebaseOptions(
       apiKey: "AIzaSyDKOTmBwu4e-hOdeLoXQdkPYcaqdESxhbs ",
       appId: "1:133712637971:android:73da5b9803868740b90fe6",
