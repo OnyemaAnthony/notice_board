@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
                 }else if(state is UnAuthenticatedState){
                   return  const WelcomeScreen();
                 }else if (state is AuthenticationErrorState){
-                  return const Center(child: Text('Something went wrong try again latter'),);
+                  return const Center(child: Text('Something went wrong try again later'),);
                 }
                   return Container();
               }),
