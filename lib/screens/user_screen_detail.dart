@@ -153,7 +153,7 @@ class UserScreenDetail extends StatelessWidget {
                            const SizedBox(height: 5,),
                             Row(
                               children: [
-                                const Text('Phone number',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                const Text('Phone Number',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                 const SizedBox(width: 5,),
                                 Text(user!.phoneNumber!,style: const TextStyle(
                                     color: Colors.black,
