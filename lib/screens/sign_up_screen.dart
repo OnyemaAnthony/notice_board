@@ -10,7 +10,6 @@ import 'package:notice_board/screens/login_screen.dart';
 import 'package:notice_board/screens/navigation_screen.dart';
 import 'package:notice_board/utilities.dart';
 import 'package:notice_board/widgets/storage.dart';
-
 import '../widgets/curve.dart';
 
 
@@ -107,8 +106,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onPressed: (){
           authenticationBloc.add(SignUpEvent(UserModel(createdAt:
           DateTime.now(),description: bioController.text,
-
-              isRequestedPublisher:false,email:
+              isRequestedPublisher:false,
+              email:
               emailController.text,password:
               passwordController.text,lastName:
               lastnameController.text,isPublisher:

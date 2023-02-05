@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notice_board/screens/publishers_request_detail.dart';
 import 'package:notice_board/widgets/user_list.dart';
-
 import '../blocs/authentication/authentication_bloc.dart';
 import '../models/user_model.dart';
 import '../utilities.dart';
