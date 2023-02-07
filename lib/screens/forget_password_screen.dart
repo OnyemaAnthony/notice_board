@@ -51,7 +51,6 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               obscureText: isPassword,
               decoration: const InputDecoration(
                   border: InputBorder.none,
-                  //fillColor: Color(0xfff3f3f4),
                   filled: true))
         ],
       ),
