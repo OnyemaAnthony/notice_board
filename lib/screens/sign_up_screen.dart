@@ -214,7 +214,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _entryField("Email ",emailController),
         _entryField("Description",bioController),
         _entryField("PhoneNumber",phoneNumberController),
-       // _entryField("Date of Birth",dateOfBirthNumberController),
         pickDate('Date of Birth'),
         _entryField("Gender",genderController),
         _entryField("Password",passwordController, isPassword: true),
