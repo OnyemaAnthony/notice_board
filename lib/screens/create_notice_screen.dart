@@ -56,7 +56,6 @@ class _CreateNoticeScreenState extends State<CreateNoticeScreen> {
                       height: 10,
                     ),
                     profilePicture != null?
-                    //Container(child: Text('the file is picked'),color: Colors.red,):
                     SizedBox(
                       width: double.infinity,
                       height: 200,
