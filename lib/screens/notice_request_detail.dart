@@ -114,7 +114,7 @@ class _NoticeRequestDetailState extends State<NoticeRequestDetail> {
                               children: [
                                 Row(
                                   children: const [
-                                    Text('Role : Publisher',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                    Text('Role: Publisher',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                                     SizedBox(width: 5,),
                                   ],
                                 ),
