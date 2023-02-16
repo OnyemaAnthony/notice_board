@@ -19,8 +19,8 @@ class ClipPainter extends CustomClipper<Path>{
 
 
     var fifthControlPoint =  Offset(width * .3  ,height * .5);
-    var fiftEndPoint = Offset(  width * .23, height *.6);
-    path.quadraticBezierTo(fifthControlPoint.dx, fifthControlPoint.dy, fiftEndPoint.dx, fiftEndPoint.dy);
+    var fifthEndPoint = Offset(  width * .23, height *.6);
+    path.quadraticBezierTo(fifthControlPoint.dx, fifthControlPoint.dy, fifthEndPoint.dx, fifthEndPoint.dy);
 
 
     var thirdControlPoint =  Offset(0  ,height);
