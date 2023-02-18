@@ -19,7 +19,7 @@ class UserScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is AuthenticationLoadingState) {
               return Utilities.showCircularLoader(
-                  'Fetching Notices Requests...');
+                  'Fetching Notice Requests...');
             } else if (state is UserLoadedState) {
               return state.users.isEmpty
                   ? const Center(
