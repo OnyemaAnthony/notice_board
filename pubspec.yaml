@@ -8,7 +8,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # A version number is three numbers separated by dots, like 1.2.43
 # build by specifying --build-name and --build-number, respectively.
 
-# Read more about iOS versioning at
+
 version: 1.0.0+1
 
 environment:
