@@ -12,7 +12,6 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 
-# To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
