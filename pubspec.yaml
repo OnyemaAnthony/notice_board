@@ -64,10 +64,6 @@ flutter:
 
 
 
-
-
-
-  # "family" key with the font family name, and a "fonts" key with a
   # example:
   # fonts:
   #   - family: Schyler
